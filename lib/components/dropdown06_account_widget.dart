@@ -28,6 +28,8 @@ class _Dropdown06AccountWidgetState extends State<Dropdown06AccountWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => Dropdown06AccountModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

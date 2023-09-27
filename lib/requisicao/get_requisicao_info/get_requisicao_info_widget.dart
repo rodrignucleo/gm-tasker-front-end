@@ -71,6 +71,7 @@ class _GetRequisicaoInfoWidgetState extends State<GetRequisicaoInfoWidget> {
         TextEditingController(text: widget.usuarioCadastro);
     _model.sprintReqController ??=
         TextEditingController(text: widget.sprintRequisicao);
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -118,7 +119,7 @@ class _GetRequisicaoInfoWidgetState extends State<GetRequisicaoInfoWidget> {
                     ),
                   );
                 },
-              ).then((value) => setState(() {}));
+              ).then((value) => safeSetState(() {}));
             },
           ),
           title: Text(
@@ -143,14 +144,14 @@ class _GetRequisicaoInfoWidgetState extends State<GetRequisicaoInfoWidget> {
                   width: 100.0,
                   height: double.infinity,
                   decoration: BoxDecoration(),
-                  alignment: AlignmentDirectional(0.0, -1.0),
+                  alignment: AlignmentDirectional(0.00, -1.00),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: AlignmentDirectional(0.00, 0.00),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 32.0, 32.0, 32.0, 2.0),
@@ -791,7 +792,8 @@ class _GetRequisicaoInfoWidgetState extends State<GetRequisicaoInfoWidget> {
                               0.0, 0.0, 0.0, 16.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              context.safePop();
+                              context.pushNamed('RequisicaoGeral');
+
                               Navigator.pop(context);
                             },
                             text: 'Voltar',

@@ -52,6 +52,8 @@ class _DropdownOptionsRequisicaoWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => DropdownOptionsRequisicaoModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

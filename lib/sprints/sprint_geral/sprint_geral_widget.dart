@@ -27,6 +27,8 @@ class _SprintGeralWidgetState extends State<SprintGeralWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SprintGeralModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -67,7 +69,7 @@ class _SprintGeralWidgetState extends State<SprintGeralWidget> {
                   child: Dropdown06AccountWidget(),
                 );
               },
-            ).then((value) => setState(() {}));
+            ).then((value) => safeSetState(() {}));
           },
         ),
         title: Align(
@@ -101,7 +103,7 @@ class _SprintGeralWidgetState extends State<SprintGeralWidget> {
                 child: Stack(
                   children: [
                     Align(
-                      alignment: AlignmentDirectional(0.92, 0.97),
+                      alignment: AlignmentDirectional(0.92, 0.96),
                       child: FFButtonWidget(
                         onPressed: () async {
                           context.pushNamed(
@@ -156,7 +158,9 @@ class _SprintGeralWidgetState extends State<SprintGeralWidget> {
                               width: 50.0,
                               height: 50.0,
                               child: CircularProgressIndicator(
-                                color: FlutterFlowTheme.of(context).primary,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  FlutterFlowTheme.of(context).primary,
+                                ),
                               ),
                             ),
                           );
@@ -201,7 +205,7 @@ class _SprintGeralWidgetState extends State<SprintGeralWidget> {
                                                 Align(
                                                   alignment:
                                                       AlignmentDirectional(
-                                                          0.0, 0.0),
+                                                          0.00, 0.00),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -278,7 +282,7 @@ class _SprintGeralWidgetState extends State<SprintGeralWidget> {
                                                 Align(
                                                   alignment:
                                                       AlignmentDirectional(
-                                                          0.87, 0.0),
+                                                          0.87, 0.00),
                                                   child: Padding(
                                                     padding:
                                                         EdgeInsetsDirectional

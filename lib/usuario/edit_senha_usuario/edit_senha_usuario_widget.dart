@@ -30,6 +30,7 @@ class _EditSenhaUsuarioWidgetState extends State<EditSenhaUsuarioWidget> {
 
     _model.passwordController1 ??= TextEditingController();
     _model.passwordController2 ??= TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -55,7 +56,9 @@ class _EditSenhaUsuarioWidgetState extends State<EditSenhaUsuarioWidget> {
                 width: 50.0,
                 height: 50.0,
                 child: CircularProgressIndicator(
-                  color: FlutterFlowTheme.of(context).primary,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    FlutterFlowTheme.of(context).primary,
+                  ),
                 ),
               ),
             ),
@@ -96,7 +99,7 @@ class _EditSenhaUsuarioWidgetState extends State<EditSenhaUsuarioWidget> {
                         ),
                       );
                     },
-                  ).then((value) => setState(() {}));
+                  ).then((value) => safeSetState(() {}));
                 },
               ),
               title: Text(
@@ -123,14 +126,14 @@ class _EditSenhaUsuarioWidgetState extends State<EditSenhaUsuarioWidget> {
                       decoration: BoxDecoration(
                         color: Color(0xFF454646),
                       ),
-                      alignment: AlignmentDirectional(0.0, -1.0),
+                      alignment: AlignmentDirectional(0.00, -1.00),
                       child: SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.00, 0.00),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     32.0, 32.0, 32.0, 32.0),

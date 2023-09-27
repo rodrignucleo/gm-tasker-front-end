@@ -27,6 +27,8 @@ class _DonateWidgetState extends State<DonateWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DonateModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -67,7 +69,7 @@ class _DonateWidgetState extends State<DonateWidget> {
                   child: Dropdown06AccountWidget(),
                 );
               },
-            ).then((value) => setState(() {}));
+            ).then((value) => safeSetState(() {}));
           },
         ),
         title: Text(

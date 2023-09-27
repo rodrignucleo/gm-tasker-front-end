@@ -32,6 +32,7 @@ class _CreateUsuarioWidgetState extends State<CreateUsuarioWidget> {
     _model.telefoneUsuarioController ??= TextEditingController();
     _model.emailAddressController ??= TextEditingController();
     _model.passwordController ??= TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -63,7 +64,7 @@ class _CreateUsuarioWidgetState extends State<CreateUsuarioWidget> {
                   decoration: BoxDecoration(
                     color: Color(0xFF454646),
                   ),
-                  alignment: AlignmentDirectional(0.0, -1.0),
+                  alignment: AlignmentDirectional(0.00, -1.00),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -81,7 +82,7 @@ class _CreateUsuarioWidgetState extends State<CreateUsuarioWidget> {
                               topRight: Radius.circular(0.0),
                             ),
                           ),
-                          alignment: AlignmentDirectional(-1.0, 0.0),
+                          alignment: AlignmentDirectional(-1.00, 0.00),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 32.0, 0.0, 0.0, 0.0),
@@ -98,7 +99,7 @@ class _CreateUsuarioWidgetState extends State<CreateUsuarioWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: AlignmentDirectional(0.00, 0.00),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 32.0, 32.0, 32.0, 32.0),
@@ -478,9 +479,11 @@ class _CreateUsuarioWidgetState extends State<CreateUsuarioWidget> {
                                             width: 50.0,
                                             height: 50.0,
                                             child: CircularProgressIndicator(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                              ),
                                             ),
                                           ),
                                         );
@@ -587,6 +590,8 @@ class _CreateUsuarioWidgetState extends State<CreateUsuarioWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 12.0, 0.0, 12.0),
                                   child: RichText(
+                                    textScaleFactor:
+                                        MediaQuery.of(context).textScaleFactor,
                                     text: TextSpan(
                                       children: [
                                         TextSpan(
