@@ -27,6 +27,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
     _model.emailAddressController ??= TextEditingController();
     _model.passwordLoginController ??= TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -64,7 +65,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         topRight: Radius.circular(0.0),
                       ),
                     ),
-                    alignment: AlignmentDirectional(-1.0, 0.0),
+                    alignment: AlignmentDirectional(-1.00, 0.00),
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 0.0, 0.0),
@@ -276,7 +277,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                           width: 50.0,
                           height: 50.0,
                           child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).primary,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primary,
+                            ),
                           ),
                         ),
                       );

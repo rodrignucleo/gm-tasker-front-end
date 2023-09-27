@@ -61,6 +61,7 @@ class _EditRequisicaoWidgetState extends State<EditRequisicaoWidget> {
             : widget.descricaoRequisicao);
     _model.emailUsuarioController ??=
         TextEditingController(text: widget.emailRequisicao);
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -128,7 +129,7 @@ class _EditRequisicaoWidgetState extends State<EditRequisicaoWidget> {
                         ),
                       );
                     },
-                  ).then((value) => setState(() {}));
+                  ).then((value) => safeSetState(() {}));
                 },
               ),
               title: Text(
@@ -175,14 +176,14 @@ class _EditRequisicaoWidgetState extends State<EditRequisicaoWidget> {
                           width: 100.0,
                           height: double.infinity,
                           decoration: BoxDecoration(),
-                          alignment: AlignmentDirectional(0.0, -1.0),
+                          alignment: AlignmentDirectional(0.00, -1.00),
                           child: SingleChildScrollView(
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment: AlignmentDirectional(0.00, 0.00),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         32.0, 32.0, 32.0, 2.0),
@@ -530,6 +531,7 @@ class _EditRequisicaoWidgetState extends State<EditRequisicaoWidget> {
                                                     16.0, 4.0, 16.0, 4.0),
                                             hidesUnderline: true,
                                             isSearchable: false,
+                                            isMultiSelect: false,
                                           ),
                                           Padding(
                                             padding:
@@ -819,6 +821,7 @@ class _EditRequisicaoWidgetState extends State<EditRequisicaoWidget> {
                                                           disabled: !_model
                                                               .switchSprintValue!,
                                                           isSearchable: false,
+                                                          isMultiSelect: false,
                                                         ),
                                                       ],
                                                     ),

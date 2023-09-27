@@ -35,6 +35,7 @@ class _CreateSprintWidgetState extends State<CreateSprintWidget> {
     _model.nomeSprintController ??= TextEditingController();
     _model.descricaoSprintController ??= TextEditingController();
     _model.dataConclusaoController ??= TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -82,7 +83,7 @@ class _CreateSprintWidgetState extends State<CreateSprintWidget> {
                     ),
                   );
                 },
-              ).then((value) => setState(() {}));
+              ).then((value) => safeSetState(() {}));
             },
           ),
           title: Text(
@@ -113,7 +114,9 @@ class _CreateSprintWidgetState extends State<CreateSprintWidget> {
                           width: 50.0,
                           height: 50.0,
                           child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).primary,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).primary,
+                            ),
                           ),
                         ),
                       );
@@ -123,7 +126,7 @@ class _CreateSprintWidgetState extends State<CreateSprintWidget> {
                       width: 100.0,
                       height: double.infinity,
                       decoration: BoxDecoration(),
-                      alignment: AlignmentDirectional(0.0, -1.0),
+                      alignment: AlignmentDirectional(0.00, -1.00),
                       child: Container(
                         height: MediaQuery.sizeOf(context).height * 1.0,
                         child: Stack(
@@ -413,6 +416,7 @@ class _CreateSprintWidgetState extends State<CreateSprintWidget> {
                                           16.0, 4.0, 16.0, 4.0),
                                       hidesUnderline: true,
                                       isSearchable: false,
+                                      isMultiSelect: false,
                                     ),
                                   ],
                                 ),

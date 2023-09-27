@@ -3,6 +3,7 @@ import '/components/dropdown06_account_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -48,6 +49,7 @@ class _GetUsuarioWidgetState extends State<GetUsuarioWidget> {
       FFAppState().CurrentUserJson,
       r'''$.email''',
     ).toString().toString());
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -95,7 +97,7 @@ class _GetUsuarioWidgetState extends State<GetUsuarioWidget> {
                     ),
                   );
                 },
-              ).then((value) => setState(() {}));
+              ).then((value) => safeSetState(() {}));
             },
           ),
           title: Text(
@@ -122,14 +124,14 @@ class _GetUsuarioWidgetState extends State<GetUsuarioWidget> {
                   decoration: BoxDecoration(
                     color: Color(0xFF454646),
                   ),
-                  alignment: AlignmentDirectional(0.0, -1.0),
+                  alignment: AlignmentDirectional(0.00, -1.00),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
+                          alignment: AlignmentDirectional(0.00, 0.00),
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 32.0, 32.0, 32.0, 32.0),
@@ -418,6 +420,8 @@ class _GetUsuarioWidgetState extends State<GetUsuarioWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 12.0, 0.0, 12.0),
                                   child: RichText(
+                                    textScaleFactor:
+                                        MediaQuery.of(context).textScaleFactor,
                                     text: TextSpan(
                                       children: [
                                         TextSpan(
@@ -463,6 +467,8 @@ class _GetUsuarioWidgetState extends State<GetUsuarioWidget> {
                                       context.pushNamed('editSenhaUsuario');
                                     },
                                     child: RichText(
+                                      textScaleFactor: MediaQuery.of(context)
+                                          .textScaleFactor,
                                       text: TextSpan(
                                         children: [
                                           TextSpan(
@@ -504,9 +510,11 @@ class _GetUsuarioWidgetState extends State<GetUsuarioWidget> {
                                             width: 50.0,
                                             height: 50.0,
                                             child: CircularProgressIndicator(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                              ),
                                             ),
                                           ),
                                         );
@@ -514,6 +522,8 @@ class _GetUsuarioWidgetState extends State<GetUsuarioWidget> {
                                       final richTextDeleteUsuarioResponse =
                                           snapshot.data!;
                                       return RichText(
+                                        textScaleFactor: MediaQuery.of(context)
+                                            .textScaleFactor,
                                         text: TextSpan(
                                           children: [
                                             TextSpan(

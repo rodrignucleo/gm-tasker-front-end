@@ -28,6 +28,8 @@ class _RequisicaoGeralWidgetState extends State<RequisicaoGeralWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => RequisicaoGeralModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -74,7 +76,7 @@ class _RequisicaoGeralWidgetState extends State<RequisicaoGeralWidget> {
                     ),
                   );
                 },
-              ).then((value) => setState(() {}));
+              ).then((value) => safeSetState(() {}));
             },
           ),
           title: Align(
@@ -165,7 +167,9 @@ class _RequisicaoGeralWidgetState extends State<RequisicaoGeralWidget> {
                                 width: 50.0,
                                 height: 50.0,
                                 child: CircularProgressIndicator(
-                                  color: FlutterFlowTheme.of(context).primary,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).primary,
+                                  ),
                                 ),
                               ),
                             );
@@ -211,7 +215,7 @@ class _RequisicaoGeralWidgetState extends State<RequisicaoGeralWidget> {
                                                   Align(
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            0.0, 0.0),
+                                                            0.00, 0.00),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -288,7 +292,7 @@ class _RequisicaoGeralWidgetState extends State<RequisicaoGeralWidget> {
                                                   Align(
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            0.87, 0.0),
+                                                            0.87, 0.00),
                                                     child: Padding(
                                                       padding:
                                                           EdgeInsetsDirectional
@@ -382,7 +386,8 @@ class _RequisicaoGeralWidgetState extends State<RequisicaoGeralWidget> {
                                                               );
                                                             },
                                                           ).then((value) =>
-                                                              setState(() {}));
+                                                              safeSetState(
+                                                                  () {}));
                                                         },
                                                         text: '',
                                                         icon: Icon(

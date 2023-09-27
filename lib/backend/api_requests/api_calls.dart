@@ -12,7 +12,7 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 /// Start GM Api Group Code
 
 class GMApiGroup {
-  static String baseUrl = 'http://144.126.211.93';
+  static String baseUrl = 'https://veritas.serveo.net';
   static Map<String, String> headers = {};
   static GetLoginCall getLoginCall = GetLoginCall();
   static GetRequisicaoCall getRequisicaoCall = GetRequisicaoCall();
@@ -184,7 +184,7 @@ class CreateUsuarioCall {
     String? email = '',
     String? senha = '',
   }) {
-    final body = '''
+    final ffApiRequestBody = '''
 {
   "nome": "${nome}",
   "cpf": "${cpf}",
@@ -201,7 +201,7 @@ class CreateUsuarioCall {
         ...GMApiGroup.headers,
       },
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -332,7 +332,7 @@ class EditUsuarioCall {
     String? email = '',
     String? senha = '',
   }) {
-    final body = '''
+    final ffApiRequestBody = '''
 {
   "id_usuario": "${idUsuario}",
   "nome": "${nome}",
@@ -349,7 +349,7 @@ class EditUsuarioCall {
         ...GMApiGroup.headers,
       },
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -414,7 +414,7 @@ class EditSenhaUsuarioCall {
     String? senha = '',
     String? senhaAntiga = '',
   }) {
-    final body = '''
+    final ffApiRequestBody = '''
 {
   "id_usuario": "${idUsuario}",
   "nome": "${nome}",
@@ -432,7 +432,7 @@ class EditSenhaUsuarioCall {
         ...GMApiGroup.headers,
       },
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -574,7 +574,7 @@ class CreateRequisicaoCall {
     String? email = '',
     String? statusNome = '',
   }) {
-    final body = '''
+    final ffApiRequestBody = '''
 {
   "nome": "${nome}",
   "descricao": "${descricao}",
@@ -593,7 +593,7 @@ class CreateRequisicaoCall {
         ...GMApiGroup.headers,
       },
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -674,7 +674,7 @@ class EditRequisicaoCall {
     String? statusNome = '',
     String? email = '',
   }) {
-    final body = '''
+    final ffApiRequestBody = '''
 {
   "id_requisicao": "${idRequisicao}",
   "nome": "${nome}",
@@ -695,7 +695,7 @@ class EditRequisicaoCall {
         ...GMApiGroup.headers,
       },
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
@@ -852,7 +852,7 @@ class CreateSprintCall {
     String? idStatus = '',
     String? idUsuarioCriacao = '',
   }) {
-    final body = '''
+    final ffApiRequestBody = '''
 {
   "nome": "${nome}",
   "descricao": "${descricao}",
@@ -869,7 +869,7 @@ class CreateSprintCall {
         ...GMApiGroup.headers,
       },
       params: {},
-      body: body,
+      body: ffApiRequestBody,
       bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
