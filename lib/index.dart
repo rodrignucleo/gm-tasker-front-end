@@ -22,3 +22,4 @@ export '/sprints/sprint_geral/sprint_geral_widget.dart' show SprintGeralWidget;
 export '/sprints/create_sprint/create_sprint_widget.dart'
     show CreateSprintWidget;
 export '/index/donate/donate_widget.dart' show DonateWidget;
+export '/ponto/get_ponto/get_ponto_widget.dart' show GetPontoWidget;

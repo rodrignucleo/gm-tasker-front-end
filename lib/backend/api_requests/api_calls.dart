@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import '../../flutter_flow/flutter_flow_util.dart';
-
+import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
@@ -12,7 +11,7 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 /// Start GM Api Group Code
 
 class GMApiGroup {
-  static String baseUrl = 'https://veritas.serveo.net';
+  static String baseUrl = 'https://7cfca47befd0ead0f42b058f207f784c.serveo.net';
   static Map<String, String> headers = {};
   static GetLoginCall getLoginCall = GetLoginCall();
   static GetRequisicaoCall getRequisicaoCall = GetRequisicaoCall();
@@ -32,20 +31,21 @@ class GMApiGroup {
       ConcluirRequisicaoCall();
   static GetSprintCall getSprintCall = GetSprintCall();
   static CreateSprintCall createSprintCall = CreateSprintCall();
+  static GetPontoCall getPontoCall = GetPontoCall();
+  static BaterPontoCall baterPontoCall = BaterPontoCall();
+  static DeletePontoCall deletePontoCall = DeletePontoCall();
 }
 
 class GetLoginCall {
   Future<ApiCallResponse> call({
     String? email = '',
     String? senha = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Get Login',
       apiUrl: '${GMApiGroup.baseUrl}/api/Login/${email}/${senha}',
       callType: ApiCallType.POST,
-      headers: {
-        ...GMApiGroup.headers,
-      },
+      headers: {},
       params: {},
       bodyType: BodyType.JSON,
       returnBody: true,
@@ -88,14 +88,12 @@ class GetLoginCall {
 class GetRequisicaoCall {
   Future<ApiCallResponse> call({
     String? idUsuario = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Get Requisicao',
       apiUrl: '${GMApiGroup.baseUrl}/api/Requisicao/${idUsuario}',
       callType: ApiCallType.GET,
-      headers: {
-        ...GMApiGroup.headers,
-      },
+      headers: {},
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -183,7 +181,7 @@ class CreateUsuarioCall {
     String? telefone = '',
     String? email = '',
     String? senha = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
   "nome": "${nome}",
@@ -197,9 +195,7 @@ class CreateUsuarioCall {
       callName: 'Create Usuario',
       apiUrl: '${GMApiGroup.baseUrl}/api/Usuario',
       callType: ApiCallType.POST,
-      headers: {
-        ...GMApiGroup.headers,
-      },
+      headers: {},
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
@@ -235,14 +231,12 @@ class CreateUsuarioCall {
 class GetRequisicaoConcluidaCall {
   Future<ApiCallResponse> call({
     String? idUsuario = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Get Requisicao Concluida',
       apiUrl: '${GMApiGroup.baseUrl}/api/Requisicao/conc/${idUsuario}',
       callType: ApiCallType.GET,
-      headers: {
-        ...GMApiGroup.headers,
-      },
+      headers: {},
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -331,7 +325,7 @@ class EditUsuarioCall {
     String? telefone = '',
     String? email = '',
     String? senha = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
   "id_usuario": "${idUsuario}",
@@ -345,9 +339,7 @@ class EditUsuarioCall {
       callName: 'Edit Usuario',
       apiUrl: '${GMApiGroup.baseUrl}/api/Usuario/${idUsuario}',
       callType: ApiCallType.PUT,
-      headers: {
-        ...GMApiGroup.headers,
-      },
+      headers: {},
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
@@ -387,14 +379,12 @@ class EditUsuarioCall {
 class DeleteUsuarioCall {
   Future<ApiCallResponse> call({
     String? idUsuario = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Delete Usuario',
       apiUrl: '${GMApiGroup.baseUrl}/api/Usuario/${idUsuario}',
       callType: ApiCallType.DELETE,
-      headers: {
-        ...GMApiGroup.headers,
-      },
+      headers: {},
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -413,7 +403,7 @@ class EditSenhaUsuarioCall {
     String? email = '',
     String? senha = '',
     String? senhaAntiga = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
   "id_usuario": "${idUsuario}",
@@ -428,9 +418,7 @@ class EditSenhaUsuarioCall {
       callName: 'Edit Senha Usuario',
       apiUrl: '${GMApiGroup.baseUrl}/api/Usuario/edit/password/${idUsuario}',
       callType: ApiCallType.PUT,
-      headers: {
-        ...GMApiGroup.headers,
-      },
+      headers: {},
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
@@ -472,14 +460,12 @@ class EditSenhaUsuarioCall {
 }
 
 class GetStatusCall {
-  Future<ApiCallResponse> call() {
+  Future<ApiCallResponse> call() async {
     return ApiManager.instance.makeApiCall(
       callName: 'Get Status',
       apiUrl: '${GMApiGroup.baseUrl}/api/Status/',
       callType: ApiCallType.GET,
-      headers: {
-        ...GMApiGroup.headers,
-      },
+      headers: {},
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -508,14 +494,12 @@ class GetStatusCall {
 class GetSprintNaoConcluidaCall {
   Future<ApiCallResponse> call({
     String? idUsuario = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Get Sprint Nao Concluida',
       apiUrl: '${GMApiGroup.baseUrl}/api/Sprint/conc/${idUsuario}',
       callType: ApiCallType.GET,
-      headers: {
-        ...GMApiGroup.headers,
-      },
+      headers: {},
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -573,7 +557,7 @@ class CreateRequisicaoCall {
     String? idSprint = '',
     String? email = '',
     String? statusNome = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
   "nome": "${nome}",
@@ -589,9 +573,7 @@ class CreateRequisicaoCall {
       callName: 'Create Requisicao',
       apiUrl: '${GMApiGroup.baseUrl}/api/Requisicao/${email}/${statusNome}',
       callType: ApiCallType.POST,
-      headers: {
-        ...GMApiGroup.headers,
-      },
+      headers: {},
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
@@ -643,14 +625,12 @@ class CreateRequisicaoCall {
 class DeleteRequisicaoCall {
   Future<ApiCallResponse> call({
     String? idRequisicao = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Delete Requisicao',
       apiUrl: '${GMApiGroup.baseUrl}/api/Requisicao/req/${idRequisicao}',
       callType: ApiCallType.DELETE,
-      headers: {
-        ...GMApiGroup.headers,
-      },
+      headers: {},
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -673,7 +653,7 @@ class EditRequisicaoCall {
     String? dataCadastro = '',
     String? statusNome = '',
     String? email = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
   "id_requisicao": "${idRequisicao}",
@@ -691,9 +671,7 @@ class EditRequisicaoCall {
       apiUrl:
           '${GMApiGroup.baseUrl}/api/Requisicao/req/${idRequisicao}/${email}/${statusNome}',
       callType: ApiCallType.PUT,
-      headers: {
-        ...GMApiGroup.headers,
-      },
+      headers: {},
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
@@ -753,14 +731,12 @@ class EditRequisicaoCall {
 class ConcluirRequisicaoCall {
   Future<ApiCallResponse> call({
     String? idRequisicao = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Concluir Requisicao',
       apiUrl: '${GMApiGroup.baseUrl}/api/Requisicao/concluir/${idRequisicao}',
       callType: ApiCallType.PUT,
-      headers: {
-        ...GMApiGroup.headers,
-      },
+      headers: {},
       params: {},
       bodyType: BodyType.NONE,
       returnBody: true,
@@ -774,14 +750,12 @@ class ConcluirRequisicaoCall {
 class GetSprintCall {
   Future<ApiCallResponse> call({
     String? idUsuario = '',
-  }) {
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Get Sprint',
       apiUrl: '${GMApiGroup.baseUrl}/api/Sprint/usuSprint/${idUsuario}',
       callType: ApiCallType.GET,
-      headers: {
-        ...GMApiGroup.headers,
-      },
+      headers: {},
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -851,7 +825,7 @@ class CreateSprintCall {
     String? dataConclusao = '',
     String? idStatus = '',
     String? idUsuarioCriacao = '',
-  }) {
+  }) async {
     final ffApiRequestBody = '''
 {
   "nome": "${nome}",
@@ -865,12 +839,113 @@ class CreateSprintCall {
       callName: 'Create Sprint',
       apiUrl: '${GMApiGroup.baseUrl}/api/Sprint/${statusNome}',
       callType: ApiCallType.POST,
-      headers: {
-        ...GMApiGroup.headers,
-      },
+      headers: {},
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class GetPontoCall {
+  Future<ApiCallResponse> call({
+    String? dataPonto = '',
+    int? idUsuario,
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get Ponto',
+      apiUrl: '${GMApiGroup.baseUrl}/api/Ponto/${idUsuario}',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'data_ponto': dataPonto,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic idPonto(dynamic response) => getJsonField(
+        response,
+        r'''$[:].id_ponto''',
+        true,
+      );
+  dynamic dataPonto(dynamic response) => getJsonField(
+        response,
+        r'''$[:].data_ponto''',
+        true,
+      );
+  dynamic horaPonto(dynamic response) => getJsonField(
+        response,
+        r'''$[:].hora_ponto''',
+        true,
+      );
+  dynamic idUsuarioPonto(dynamic response) => getJsonField(
+        response,
+        r'''$[:].id_usuario_criacao''',
+        true,
+      );
+}
+
+class BaterPontoCall {
+  Future<ApiCallResponse> call({
+    int? idUsuario,
+    String? dataPonto = '',
+    String? horaPonto = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "data_ponto": "${dataPonto}",
+  "hora_ponto": "${horaPonto}",
+  "id_usuario_criacao": "${idUsuario}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Bater Ponto',
+      apiUrl: '${GMApiGroup.baseUrl}/api/Ponto/${idUsuario}',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic dataPonto(dynamic response) => getJsonField(
+        response,
+        r'''$.data_ponto''',
+      );
+  dynamic horaPonto(dynamic response) => getJsonField(
+        response,
+        r'''$.hora_ponto''',
+      );
+  dynamic idUsuarioPonto(dynamic response) => getJsonField(
+        response,
+        r'''$.id_usuario_criacao''',
+      );
+}
+
+class DeletePontoCall {
+  Future<ApiCallResponse> call({
+    int? idPonto,
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Delete Ponto',
+      apiUrl: '${GMApiGroup.baseUrl}/api/Ponto/${idPonto}',
+      callType: ApiCallType.DELETE,
+      headers: {},
+      params: {
+        'id_ponto': idPonto,
+      },
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

@@ -1,5 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/dropdown06_account_widget.dart';
+import '/components/dropdown_options_ponto_widget.dart';
+import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -9,25 +11,25 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'sprint_geral_model.dart';
-export 'sprint_geral_model.dart';
+import 'get_ponto_model.dart';
+export 'get_ponto_model.dart';
 
-class SprintGeralWidget extends StatefulWidget {
-  const SprintGeralWidget({Key? key}) : super(key: key);
+class GetPontoWidget extends StatefulWidget {
+  const GetPontoWidget({Key? key}) : super(key: key);
 
   @override
-  _SprintGeralWidgetState createState() => _SprintGeralWidgetState();
+  _GetPontoWidgetState createState() => _GetPontoWidgetState();
 }
 
-class _SprintGeralWidgetState extends State<SprintGeralWidget> {
-  late SprintGeralModel _model;
+class _GetPontoWidgetState extends State<GetPontoWidget> {
+  late GetPontoModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SprintGeralModel());
+    _model = createModel(context, () => GetPontoModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -85,7 +87,7 @@ class _SprintGeralWidgetState extends State<SprintGeralWidget> {
         title: Align(
           alignment: AlignmentDirectional(-0.51, -0.31),
           child: Text(
-            'Suas Sprints',
+            'Seus Pontos',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Outfit',
                   color: Colors.white,
@@ -116,23 +118,46 @@ class _SprintGeralWidgetState extends State<SprintGeralWidget> {
                       alignment: AlignmentDirectional(0.92, 0.96),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          context.pushNamed(
-                            'createSprint',
-                            extra: <String, dynamic>{
-                              kTransitionInfoKey: TransitionInfo(
-                                hasTransition: true,
-                                transitionType: PageTransitionType.rightToLeft,
-                              ),
-                            },
+                          _model.apiResultihp =
+                              await GMApiGroup.baterPontoCall.call(
+                            idUsuario: getJsonField(
+                              FFAppState().CurrentUserJson,
+                              r'''$.id_usuario''',
+                            ),
+                            dataPonto: dateTimeFormat(
+                                'd/M/y', _model.calendarSelectedDay?.end),
+                            horaPonto:
+                                dateTimeFormat('Hms', getCurrentTimestamp),
                           );
+                          if ((_model.apiResultihp?.succeeded ?? true)) {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text('Ponto Batido'),
+                                  content: Text(
+                                      'O Ponto foi registrado com sucesso!'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+
+                          setState(() {});
                         },
-                        text: '',
+                        text: 'Bater Ponto',
                         icon: Icon(
-                          Icons.add,
+                          Icons.watch_later_outlined,
                           size: 30.0,
                         ),
                         options: FFButtonOptions(
-                          width: 50.0,
+                          width: 161.0,
                           height: 50.0,
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 0.0),
@@ -154,11 +179,13 @@ class _SprintGeralWidgetState extends State<SprintGeralWidget> {
                       ),
                     ),
                     FutureBuilder<ApiCallResponse>(
-                      future: GMApiGroup.getSprintCall.call(
+                      future: GMApiGroup.getPontoCall.call(
+                        dataPonto: dateTimeFormat(
+                            'd/M/y', _model.calendarSelectedDay?.end),
                         idUsuario: getJsonField(
                           FFAppState().CurrentUserJson,
                           r'''$.id_usuario''',
-                        ).toString(),
+                        ),
                       ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
@@ -175,27 +202,55 @@ class _SprintGeralWidgetState extends State<SprintGeralWidget> {
                             ),
                           );
                         }
-                        final columnGetSprintResponse = snapshot.data!;
+                        final columnGetPontoResponse = snapshot.data!;
                         return SingleChildScrollView(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              if (columnGetSprintResponse.succeeded)
+                              FlutterFlowCalendar(
+                                color: FlutterFlowTheme.of(context).primary,
+                                iconColor:
+                                    FlutterFlowTheme.of(context).alternate,
+                                weekFormat: true,
+                                weekStartsMonday: false,
+                                rowHeight: 64.0,
+                                onChange: (DateTimeRange? newSelectedDate) {
+                                  setState(() => _model.calendarSelectedDay =
+                                      newSelectedDate);
+                                },
+                                titleStyle: FlutterFlowTheme.of(context)
+                                    .headlineSmall
+                                    .override(
+                                      fontFamily: 'Outfit',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBtnText,
+                                    ),
+                                dayOfWeekStyle:
+                                    FlutterFlowTheme.of(context).labelLarge,
+                                dateStyle: TextStyle(
+                                  color: FlutterFlowTheme.of(context).lineColor,
+                                ),
+                                selectedDateStyle:
+                                    FlutterFlowTheme.of(context).titleSmall,
+                                inactiveDateStyle:
+                                    FlutterFlowTheme.of(context).labelMedium,
+                              ),
+                              if (columnGetPontoResponse.succeeded)
                                 Builder(
                                   builder: (context) {
-                                    final listSprint = columnGetSprintResponse
+                                    final listPonto = columnGetPontoResponse
                                         .jsonBody
                                         .toList();
                                     return ListView.builder(
                                       padding: EdgeInsets.zero,
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
-                                      itemCount: listSprint.length,
-                                      itemBuilder: (context, listSprintIndex) {
-                                        final listSprintItem =
-                                            listSprint[listSprintIndex];
+                                      itemCount: listPonto.length,
+                                      itemBuilder: (context, listPontoIndex) {
+                                        final listPontoItem =
+                                            listPonto[listPontoIndex];
                                         return Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -212,96 +267,73 @@ class _SprintGeralWidgetState extends State<SprintGeralWidget> {
                                             ),
                                             child: Stack(
                                               children: [
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0.00, 0.00),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Text(
-                                                            '  Titulo: ',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium,
-                                                          ),
-                                                          Text(
-                                                            getJsonField(
-                                                              listSprintItem,
-                                                              r'''$.nome''',
-                                                            ).toString(),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Text(
-                                                            '  Status: ',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium,
-                                                          ),
-                                                          Text(
-                                                            getJsonField(
-                                                              listSprintItem,
-                                                              r'''$.status.nome''',
-                                                            ).toString(),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Text(
-                                                            '  Conclusao em: ',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium,
-                                                          ),
-                                                          Text(
-                                                            getJsonField(
-                                                              listSprintItem,
-                                                              r'''$.data_conclusao''',
-                                                            ).toString(),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
+                                                Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Text(
+                                                          '  Horario: ',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium,
+                                                        ),
+                                                        Text(
+                                                          getJsonField(
+                                                            listPontoItem,
+                                                            r'''$.hora_ponto''',
+                                                          ).toString(),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
                                                 ),
                                                 Align(
                                                   alignment:
                                                       AlignmentDirectional(
-                                                          0.87, 0.00),
+                                                          0.81, 0.00),
                                                   child: Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 10.0,
-                                                                0.0, 10.0),
+                                                            .fromSTEB(5.0, 5.0,
+                                                                5.0, 5.0),
                                                     child: FFButtonWidget(
-                                                      onPressed: () {
-                                                        print(
-                                                            'MaisInfo pressed ...');
+                                                      onPressed: () async {
+                                                        await showModalBottomSheet(
+                                                          isScrollControlled:
+                                                              true,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return Padding(
+                                                              padding: MediaQuery
+                                                                  .viewInsetsOf(
+                                                                      context),
+                                                              child:
+                                                                  DropdownOptionsPontoWidget(
+                                                                idPonto:
+                                                                    getJsonField(
+                                                                  listPontoItem,
+                                                                  r'''$.id_ponto''',
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ).then((value) =>
+                                                            safeSetState(
+                                                                () {}));
                                                       },
                                                       text: '',
                                                       icon: Icon(
@@ -317,7 +349,7 @@ class _SprintGeralWidgetState extends State<SprintGeralWidget> {
                                                                     0.0,
                                                                     0.0,
                                                                     0.0,
-                                                                    0.0),
+                                                                    1.0),
                                                         iconPadding:
                                                             EdgeInsetsDirectional
                                                                 .fromSTEB(

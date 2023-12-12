@@ -1,11 +1,13 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dropdown06_account_widget.dart' show Dropdown06AccountWidget;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class Dropdown06AccountModel extends FlutterFlowModel {
+class Dropdown06AccountModel extends FlutterFlowModel<Dropdown06AccountWidget> {
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for MouseRegion widget.
@@ -18,6 +20,8 @@ class Dropdown06AccountModel extends FlutterFlowModel {
   bool mouseRegionHovered4 = false;
   // State field(s) for MouseRegion widget.
   bool mouseRegionHovered5 = false;
+  // State field(s) for MouseRegion widget.
+  bool mouseRegionHovered6 = false;
 
   /// Initialization and disposal methods.
 

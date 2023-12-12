@@ -1,29 +1,36 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/dropdown06_account_widget.dart';
-import '/components/dropdown_options_requisicao_widget.dart';
+import '/components/dropdown_options_ponto_widget.dart';
+import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'requisicao_geral_widget.dart' show RequisicaoGeralWidget;
+import 'get_ponto_widget.dart' show GetPontoWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class RequisicaoGeralModel extends FlutterFlowModel<RequisicaoGeralWidget> {
+class GetPontoModel extends FlutterFlowModel<GetPontoWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
+  // Stores action output result for [Backend Call - API (Bater Ponto)] action in Button widget.
+  ApiCallResponse? apiResultihp;
+  // State field(s) for Calendar widget.
+  DateTimeRange? calendarSelectedDay;
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {}
-
-  void dispose() {
-    unfocusNode.dispose();
+  void initState(BuildContext context) {
+    calendarSelectedDay = DateTimeRange(
+      start: DateTime.now().startOfDay,
+      end: DateTime.now().endOfDay,
+    );
   }
+
+  void dispose() {}
 
   /// Action blocks are added here.
 

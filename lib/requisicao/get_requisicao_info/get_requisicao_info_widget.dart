@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -55,22 +56,38 @@ class _GetRequisicaoInfoWidgetState extends State<GetRequisicaoInfoWidget> {
 
     _model.nomeRequisicaoController ??=
         TextEditingController(text: widget.tituloRequisicao);
+    _model.nomeRequisicaoFocusNode ??= FocusNode();
+
     _model.statusController ??=
         TextEditingController(text: widget.statusRequisicao);
+    _model.statusFocusNode ??= FocusNode();
+
     _model.dataCadastroController ??=
         TextEditingController(text: widget.dataCadastro);
+    _model.dataCadastroFocusNode ??= FocusNode();
+
     _model.dataConclusaoController ??=
         TextEditingController(text: widget.dataConclusao);
+    _model.dataConclusaoFocusNode ??= FocusNode();
+
     _model.descricaoRequisicaoController ??= TextEditingController(
         text: widget.descricaoRequisicao == 'null'
             ? null
             : widget.descricaoRequisicao);
+    _model.descricaoRequisicaoFocusNode ??= FocusNode();
+
     _model.nomeUsuarioResponsavelController ??=
         TextEditingController(text: widget.responsavelRequisicao);
+    _model.nomeUsuarioResponsavelFocusNode ??= FocusNode();
+
     _model.nomeUsuarioRequisitanteController ??=
         TextEditingController(text: widget.usuarioCadastro);
+    _model.nomeUsuarioRequisitanteFocusNode ??= FocusNode();
+
     _model.sprintReqController ??=
         TextEditingController(text: widget.sprintRequisicao);
+    _model.sprintReqFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -83,10 +100,21 @@ class _GetRequisicaoInfoWidgetState extends State<GetRequisicaoInfoWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Color(0xFF454646),
@@ -111,8 +139,10 @@ class _GetRequisicaoInfoWidgetState extends State<GetRequisicaoInfoWidget> {
                 context: context,
                 builder: (context) {
                   return GestureDetector(
-                    onTap: () =>
-                        FocusScope.of(context).requestFocus(_model.unfocusNode),
+                    onTap: () => _model.unfocusNode.canRequestFocus
+                        ? FocusScope.of(context)
+                            .requestFocus(_model.unfocusNode)
+                        : FocusScope.of(context).unfocus(),
                     child: Padding(
                       padding: MediaQuery.viewInsetsOf(context),
                       child: Dropdown06AccountWidget(),
@@ -183,6 +213,8 @@ class _GetRequisicaoInfoWidgetState extends State<GetRequisicaoInfoWidget> {
                                       child: TextFormField(
                                         controller:
                                             _model.nomeRequisicaoController,
+                                        focusNode:
+                                            _model.nomeRequisicaoFocusNode,
                                         autofocus: true,
                                         autofillHints: [AutofillHints.name],
                                         readOnly: true,
@@ -255,6 +287,7 @@ class _GetRequisicaoInfoWidgetState extends State<GetRequisicaoInfoWidget> {
                                       width: 370.0,
                                       child: TextFormField(
                                         controller: _model.statusController,
+                                        focusNode: _model.statusFocusNode,
                                         autofocus: true,
                                         autofillHints: [AutofillHints.birthday],
                                         readOnly: true,
@@ -328,6 +361,7 @@ class _GetRequisicaoInfoWidgetState extends State<GetRequisicaoInfoWidget> {
                                       child: TextFormField(
                                         controller:
                                             _model.dataCadastroController,
+                                        focusNode: _model.dataCadastroFocusNode,
                                         autofocus: true,
                                         autofillHints: [AutofillHints.birthday],
                                         readOnly: true,
@@ -403,6 +437,8 @@ class _GetRequisicaoInfoWidgetState extends State<GetRequisicaoInfoWidget> {
                                       child: TextFormField(
                                         controller:
                                             _model.dataConclusaoController,
+                                        focusNode:
+                                            _model.dataConclusaoFocusNode,
                                         autofocus: true,
                                         autofillHints: [AutofillHints.birthday],
                                         readOnly: true,
@@ -478,6 +514,8 @@ class _GetRequisicaoInfoWidgetState extends State<GetRequisicaoInfoWidget> {
                                       child: TextFormField(
                                         controller: _model
                                             .descricaoRequisicaoController,
+                                        focusNode:
+                                            _model.descricaoRequisicaoFocusNode,
                                         autofocus: true,
                                         readOnly: true,
                                         obscureText: false,
@@ -555,6 +593,8 @@ class _GetRequisicaoInfoWidgetState extends State<GetRequisicaoInfoWidget> {
                                             child: TextFormField(
                                               controller: _model
                                                   .nomeUsuarioResponsavelController,
+                                              focusNode: _model
+                                                  .nomeUsuarioResponsavelFocusNode,
                                               autofocus: true,
                                               autofillHints: [
                                                 AutofillHints.email
@@ -640,11 +680,13 @@ class _GetRequisicaoInfoWidgetState extends State<GetRequisicaoInfoWidget> {
                                       child: TextFormField(
                                         controller: _model
                                             .nomeUsuarioRequisitanteController,
+                                        focusNode: _model
+                                            .nomeUsuarioRequisitanteFocusNode,
                                         autofocus: true,
                                         readOnly: true,
                                         obscureText: false,
                                         decoration: InputDecoration(
-                                          labelText: '   Descrição',
+                                          labelText: 'Usuário Criador',
                                           labelStyle:
                                               FlutterFlowTheme.of(context)
                                                   .labelMedium,
@@ -717,6 +759,7 @@ class _GetRequisicaoInfoWidgetState extends State<GetRequisicaoInfoWidget> {
                                         child: TextFormField(
                                           controller:
                                               _model.sprintReqController,
+                                          focusNode: _model.sprintReqFocusNode,
                                           autofocus: true,
                                           autofillHints: [AutofillHints.email],
                                           readOnly: true,

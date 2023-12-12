@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'login_model.dart';
@@ -26,7 +27,11 @@ class _LoginWidgetState extends State<LoginWidget> {
     _model = createModel(context, () => LoginModel());
 
     _model.emailAddressController ??= TextEditingController();
+    _model.emailAddressFocusNode ??= FocusNode();
+
     _model.passwordLoginController ??= TextEditingController();
+    _model.passwordLoginFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -39,6 +44,15 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return Scaffold(
@@ -126,6 +140,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   ),
                   child: TextFormField(
                     controller: _model.emailAddressController,
+                    focusNode: _model.emailAddressFocusNode,
                     obscureText: false,
                     decoration: InputDecoration(
                       labelText: 'Your email address...',
@@ -197,6 +212,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   ),
                   child: TextFormField(
                     controller: _model.passwordLoginController,
+                    focusNode: _model.passwordLoginFocusNode,
                     obscureText: !_model.passwordLoginVisibility,
                     decoration: InputDecoration(
                       labelText: 'Password',
@@ -340,33 +356,38 @@ class _LoginWidgetState extends State<LoginWidget> {
                   },
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
-                child: FFButtonWidget(
-                  onPressed: () async {
-                    context.pushNamed(
-                      'createUsuario',
-                      extra: <String, dynamic>{
-                        kTransitionInfoKey: TransitionInfo(
-                          hasTransition: true,
-                          transitionType: PageTransitionType.fade,
-                        ),
-                      },
-                    );
-                  },
-                  text: 'Cadastre-se',
-                  options: FFButtonOptions(
-                    width: 106.0,
-                    height: 50.0,
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: Color(0xFF282E32),
-                    textStyle: FlutterFlowTheme.of(context).titleSmall,
-                    elevation: 3.0,
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1.0,
+              Align(
+                alignment: AlignmentDirectional(0.00, 0.00),
+                child: Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      context.pushNamed(
+                        'createUsuario',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                          ),
+                        },
+                      );
+                    },
+                    text: 'Cadastre-se',
+                    options: FFButtonOptions(
+                      width: 106.0,
+                      height: 50.0,
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      iconPadding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: Color(0xFF282E32),
+                      textStyle: FlutterFlowTheme.of(context).titleSmall,
+                      elevation: 3.0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
                     ),
                   ),
                 ),
