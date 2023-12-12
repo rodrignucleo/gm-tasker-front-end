@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'dropdown06_account_model.dart';
@@ -226,7 +227,7 @@ class _Dropdown06AccountWidgetState extends State<Dropdown06AccountWidget> {
                     highlightColor: Colors.transparent,
                     onTap: () async {
                       context.pushNamed(
-                        'getUsuario',
+                        'getPonto',
                         extra: <String, dynamic>{
                           kTransitionInfoKey: TransitionInfo(
                             hasTransition: true,
@@ -241,6 +242,76 @@ class _Dropdown06AccountWidgetState extends State<Dropdown06AccountWidget> {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: _model.mouseRegionHovered2!
+                            ? FlutterFlowTheme.of(context).primaryBackground
+                            : FlutterFlowTheme.of(context).secondaryBackground,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 0.0, 0.0),
+                              child: Icon(
+                                Icons.watch_later_outlined,
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                size: 20.0,
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    12.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  'Ponto',
+                                  style:
+                                      FlutterFlowTheme.of(context).bodyMedium,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  onEnter: ((event) async {
+                    setState(() => _model.mouseRegionHovered2 = true);
+                  }),
+                  onExit: ((event) async {
+                    setState(() => _model.mouseRegionHovered2 = false);
+                  }),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 4.0),
+                child: MouseRegion(
+                  opaque: false,
+                  cursor: MouseCursor.defer ?? MouseCursor.defer,
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.pushNamed(
+                        'getUsuario',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.rightToLeft,
+                          ),
+                        },
+                      );
+                    },
+                    child: AnimatedContainer(
+                      duration: Duration(milliseconds: 150),
+                      curve: Curves.easeInOut,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: _model.mouseRegionHovered3!
                             ? FlutterFlowTheme.of(context).primaryBackground
                             : FlutterFlowTheme.of(context).secondaryBackground,
                         borderRadius: BorderRadius.circular(8.0),
@@ -277,10 +348,10 @@ class _Dropdown06AccountWidgetState extends State<Dropdown06AccountWidget> {
                     ),
                   ),
                   onEnter: ((event) async {
-                    setState(() => _model.mouseRegionHovered2 = true);
+                    setState(() => _model.mouseRegionHovered3 = true);
                   }),
                   onExit: ((event) async {
-                    setState(() => _model.mouseRegionHovered2 = false);
+                    setState(() => _model.mouseRegionHovered3 = false);
                   }),
                 ),
               ),
@@ -310,7 +381,7 @@ class _Dropdown06AccountWidgetState extends State<Dropdown06AccountWidget> {
                       curve: Curves.easeInOut,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: _model.mouseRegionHovered3!
+                        color: _model.mouseRegionHovered4!
                             ? FlutterFlowTheme.of(context).primaryBackground
                             : FlutterFlowTheme.of(context).secondaryBackground,
                         borderRadius: BorderRadius.circular(8.0),
@@ -347,10 +418,10 @@ class _Dropdown06AccountWidgetState extends State<Dropdown06AccountWidget> {
                     ),
                   ),
                   onEnter: ((event) async {
-                    setState(() => _model.mouseRegionHovered3 = true);
+                    setState(() => _model.mouseRegionHovered4 = true);
                   }),
                   onExit: ((event) async {
-                    setState(() => _model.mouseRegionHovered3 = false);
+                    setState(() => _model.mouseRegionHovered4 = false);
                   }),
                 ),
               ),
@@ -380,7 +451,7 @@ class _Dropdown06AccountWidgetState extends State<Dropdown06AccountWidget> {
                       curve: Curves.easeInOut,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: _model.mouseRegionHovered4!
+                        color: _model.mouseRegionHovered5!
                             ? FlutterFlowTheme.of(context).primaryBackground
                             : FlutterFlowTheme.of(context).secondaryBackground,
                         borderRadius: BorderRadius.circular(8.0),
@@ -417,10 +488,10 @@ class _Dropdown06AccountWidgetState extends State<Dropdown06AccountWidget> {
                     ),
                   ),
                   onEnter: ((event) async {
-                    setState(() => _model.mouseRegionHovered4 = true);
+                    setState(() => _model.mouseRegionHovered5 = true);
                   }),
                   onExit: ((event) async {
-                    setState(() => _model.mouseRegionHovered4 = false);
+                    setState(() => _model.mouseRegionHovered5 = false);
                   }),
                 ),
               ),
@@ -524,7 +595,7 @@ class _Dropdown06AccountWidgetState extends State<Dropdown06AccountWidget> {
                       curve: Curves.easeInOut,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: _model.mouseRegionHovered5!
+                        color: _model.mouseRegionHovered6!
                             ? FlutterFlowTheme.of(context).primaryBackground
                             : FlutterFlowTheme.of(context).secondaryBackground,
                         borderRadius: BorderRadius.circular(8.0),
@@ -561,10 +632,10 @@ class _Dropdown06AccountWidgetState extends State<Dropdown06AccountWidget> {
                     ),
                   ),
                   onEnter: ((event) async {
-                    setState(() => _model.mouseRegionHovered5 = true);
+                    setState(() => _model.mouseRegionHovered6 = true);
                   }),
                   onExit: ((event) async {
-                    setState(() => _model.mouseRegionHovered5 = false);
+                    setState(() => _model.mouseRegionHovered6 = false);
                   }),
                 ),
               ),

@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,11 @@ class _EditSenhaUsuarioWidgetState extends State<EditSenhaUsuarioWidget> {
     _model = createModel(context, () => EditSenhaUsuarioModel());
 
     _model.passwordController1 ??= TextEditingController();
+    _model.passwordFocusNode1 ??= FocusNode();
+
     _model.passwordController2 ??= TextEditingController();
+    _model.passwordFocusNode2 ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -42,6 +47,15 @@ class _EditSenhaUsuarioWidgetState extends State<EditSenhaUsuarioWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return FutureBuilder<ApiCallResponse>(
@@ -66,7 +80,9 @@ class _EditSenhaUsuarioWidgetState extends State<EditSenhaUsuarioWidget> {
         }
         final editSenhaUsuarioEditSenhaUsuarioResponse = snapshot.data!;
         return GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+          onTap: () => _model.unfocusNode.canRequestFocus
+              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+              : FocusScope.of(context).unfocus(),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: Color(0xFF454646),
@@ -91,8 +107,10 @@ class _EditSenhaUsuarioWidgetState extends State<EditSenhaUsuarioWidget> {
                     context: context,
                     builder: (context) {
                       return GestureDetector(
-                        onTap: () => FocusScope.of(context)
-                            .requestFocus(_model.unfocusNode),
+                        onTap: () => _model.unfocusNode.canRequestFocus
+                            ? FocusScope.of(context)
+                                .requestFocus(_model.unfocusNode)
+                            : FocusScope.of(context).unfocus(),
                         child: Padding(
                           padding: MediaQuery.viewInsetsOf(context),
                           child: Dropdown06AccountWidget(),
@@ -169,6 +187,7 @@ class _EditSenhaUsuarioWidgetState extends State<EditSenhaUsuarioWidget> {
                                         child: TextFormField(
                                           controller:
                                               _model.passwordController1,
+                                          focusNode: _model.passwordFocusNode1,
                                           autofocus: true,
                                           obscureText:
                                               !_model.passwordVisibility1,
@@ -258,6 +277,7 @@ class _EditSenhaUsuarioWidgetState extends State<EditSenhaUsuarioWidget> {
                                         child: TextFormField(
                                           controller:
                                               _model.passwordController2,
+                                          focusNode: _model.passwordFocusNode2,
                                           autofocus: true,
                                           obscureText:
                                               !_model.passwordVisibility2,

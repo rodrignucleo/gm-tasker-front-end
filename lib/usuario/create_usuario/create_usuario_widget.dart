@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
@@ -28,10 +29,20 @@ class _CreateUsuarioWidgetState extends State<CreateUsuarioWidget> {
     _model = createModel(context, () => CreateUsuarioModel());
 
     _model.nomeUsuarioController ??= TextEditingController();
+    _model.nomeUsuarioFocusNode ??= FocusNode();
+
     _model.cpfUsuarioController ??= TextEditingController();
+    _model.cpfUsuarioFocusNode ??= FocusNode();
+
     _model.telefoneUsuarioController ??= TextEditingController();
+    _model.telefoneUsuarioFocusNode ??= FocusNode();
+
     _model.emailAddressController ??= TextEditingController();
+    _model.emailAddressFocusNode ??= FocusNode();
+
     _model.passwordController ??= TextEditingController();
+    _model.passwordFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -44,10 +55,21 @@ class _CreateUsuarioWidgetState extends State<CreateUsuarioWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Color(0xFF454646),
@@ -133,6 +155,7 @@ class _CreateUsuarioWidgetState extends State<CreateUsuarioWidget> {
                                     width: 370.0,
                                     child: TextFormField(
                                       controller: _model.nomeUsuarioController,
+                                      focusNode: _model.nomeUsuarioFocusNode,
                                       autofocus: true,
                                       autofillHints: [AutofillHints.name],
                                       obscureText: false,
@@ -196,6 +219,7 @@ class _CreateUsuarioWidgetState extends State<CreateUsuarioWidget> {
                                     width: 370.0,
                                     child: TextFormField(
                                       controller: _model.cpfUsuarioController,
+                                      focusNode: _model.cpfUsuarioFocusNode,
                                       autofocus: true,
                                       autofillHints: [AutofillHints.name],
                                       obscureText: false,
@@ -261,6 +285,8 @@ class _CreateUsuarioWidgetState extends State<CreateUsuarioWidget> {
                                     child: TextFormField(
                                       controller:
                                           _model.telefoneUsuarioController,
+                                      focusNode:
+                                          _model.telefoneUsuarioFocusNode,
                                       autofocus: true,
                                       autofillHints: [
                                         AutofillHints.telephoneNumber
@@ -330,6 +356,7 @@ class _CreateUsuarioWidgetState extends State<CreateUsuarioWidget> {
                                     width: 370.0,
                                     child: TextFormField(
                                       controller: _model.emailAddressController,
+                                      focusNode: _model.emailAddressFocusNode,
                                       autofocus: true,
                                       autofillHints: [AutofillHints.email],
                                       textCapitalization:
@@ -395,6 +422,7 @@ class _CreateUsuarioWidgetState extends State<CreateUsuarioWidget> {
                                     width: 370.0,
                                     child: TextFormField(
                                       controller: _model.passwordController,
+                                      focusNode: _model.passwordFocusNode,
                                       autofocus: true,
                                       autofillHints: [AutofillHints.password],
                                       obscureText: !_model.passwordVisibility,

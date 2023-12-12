@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -34,22 +35,32 @@ class _EditInfoUsuarioWidgetState extends State<EditInfoUsuarioWidget> {
       FFAppState().CurrentUserJson,
       r'''$.nome''',
     ).toString().toString());
+    _model.nomeUsuarioFocusNode ??= FocusNode();
+
     _model.cpfUsuarioController ??= TextEditingController(
         text: getJsonField(
       FFAppState().CurrentUserJson,
       r'''$.cpf''',
     ).toString().toString());
+    _model.cpfUsuarioFocusNode ??= FocusNode();
+
     _model.telefoneUsuarioController ??= TextEditingController(
         text: getJsonField(
       FFAppState().CurrentUserJson,
       r'''$.telefone''',
     ).toString().toString());
+    _model.telefoneUsuarioFocusNode ??= FocusNode();
+
     _model.emailAddressController ??= TextEditingController(
         text: getJsonField(
       FFAppState().CurrentUserJson,
       r'''$.email''',
     ).toString().toString());
+    _model.emailAddressFocusNode ??= FocusNode();
+
     _model.passwordController ??= TextEditingController();
+    _model.passwordFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -62,10 +73,21 @@ class _EditInfoUsuarioWidgetState extends State<EditInfoUsuarioWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Color(0xFF454646),
@@ -90,8 +112,10 @@ class _EditInfoUsuarioWidgetState extends State<EditInfoUsuarioWidget> {
                 context: context,
                 builder: (context) {
                   return GestureDetector(
-                    onTap: () =>
-                        FocusScope.of(context).requestFocus(_model.unfocusNode),
+                    onTap: () => _model.unfocusNode.canRequestFocus
+                        ? FocusScope.of(context)
+                            .requestFocus(_model.unfocusNode)
+                        : FocusScope.of(context).unfocus(),
                     child: Padding(
                       padding: MediaQuery.viewInsetsOf(context),
                       child: Dropdown06AccountWidget(),
@@ -166,6 +190,7 @@ class _EditInfoUsuarioWidgetState extends State<EditInfoUsuarioWidget> {
                                     width: 370.0,
                                     child: TextFormField(
                                       controller: _model.nomeUsuarioController,
+                                      focusNode: _model.nomeUsuarioFocusNode,
                                       autofocus: true,
                                       autofillHints: [AutofillHints.name],
                                       obscureText: false,
@@ -229,6 +254,7 @@ class _EditInfoUsuarioWidgetState extends State<EditInfoUsuarioWidget> {
                                     width: 370.0,
                                     child: TextFormField(
                                       controller: _model.cpfUsuarioController,
+                                      focusNode: _model.cpfUsuarioFocusNode,
                                       autofocus: true,
                                       obscureText: false,
                                       decoration: InputDecoration(
@@ -292,6 +318,8 @@ class _EditInfoUsuarioWidgetState extends State<EditInfoUsuarioWidget> {
                                     child: TextFormField(
                                       controller:
                                           _model.telefoneUsuarioController,
+                                      focusNode:
+                                          _model.telefoneUsuarioFocusNode,
                                       autofocus: true,
                                       autofillHints: [
                                         AutofillHints.telephoneNumber
@@ -361,6 +389,7 @@ class _EditInfoUsuarioWidgetState extends State<EditInfoUsuarioWidget> {
                                     width: 370.0,
                                     child: TextFormField(
                                       controller: _model.emailAddressController,
+                                      focusNode: _model.emailAddressFocusNode,
                                       autofocus: true,
                                       autofillHints: [AutofillHints.email],
                                       obscureText: false,
@@ -424,6 +453,7 @@ class _EditInfoUsuarioWidgetState extends State<EditInfoUsuarioWidget> {
                                     width: 370.0,
                                     child: TextFormField(
                                       controller: _model.passwordController,
+                                      focusNode: _model.passwordFocusNode,
                                       autofocus: true,
                                       obscureText: !_model.passwordVisibility,
                                       decoration: InputDecoration(

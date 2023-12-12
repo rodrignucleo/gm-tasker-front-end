@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,9 +34,17 @@ class _CreateRequisicaoWidgetState extends State<CreateRequisicaoWidget> {
     _model = createModel(context, () => CreateRequisicaoModel());
 
     _model.nomeRequisicaoController ??= TextEditingController();
+    _model.nomeRequisicaoFocusNode ??= FocusNode();
+
     _model.dataConclusaoController ??= TextEditingController();
+    _model.dataConclusaoFocusNode ??= FocusNode();
+
     _model.descricaoRequisicaoController ??= TextEditingController();
+    _model.descricaoRequisicaoFocusNode ??= FocusNode();
+
     _model.emailUsuarioController ??= TextEditingController();
+    _model.emailUsuarioFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -48,6 +57,15 @@ class _CreateRequisicaoWidgetState extends State<CreateRequisicaoWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return FutureBuilder<ApiCallResponse>(
@@ -71,7 +89,9 @@ class _CreateRequisicaoWidgetState extends State<CreateRequisicaoWidget> {
         }
         final createRequisicaoGetStatusResponse = snapshot.data!;
         return GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+          onTap: () => _model.unfocusNode.canRequestFocus
+              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+              : FocusScope.of(context).unfocus(),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: Color(0xFF454646),
@@ -96,8 +116,10 @@ class _CreateRequisicaoWidgetState extends State<CreateRequisicaoWidget> {
                     context: context,
                     builder: (context) {
                       return GestureDetector(
-                        onTap: () => FocusScope.of(context)
-                            .requestFocus(_model.unfocusNode),
+                        onTap: () => _model.unfocusNode.canRequestFocus
+                            ? FocusScope.of(context)
+                                .requestFocus(_model.unfocusNode)
+                            : FocusScope.of(context).unfocus(),
                         child: Padding(
                           padding: MediaQuery.viewInsetsOf(context),
                           child: Dropdown06AccountWidget(),
@@ -201,6 +223,8 @@ class _CreateRequisicaoWidgetState extends State<CreateRequisicaoWidget> {
                                               child: TextFormField(
                                                 controller: _model
                                                     .nomeRequisicaoController,
+                                                focusNode: _model
+                                                    .nomeRequisicaoFocusNode,
                                                 autofocus: true,
                                                 autofillHints: [
                                                   AutofillHints.name
@@ -289,6 +313,8 @@ class _CreateRequisicaoWidgetState extends State<CreateRequisicaoWidget> {
                                               child: TextFormField(
                                                 controller: _model
                                                     .dataConclusaoController,
+                                                focusNode: _model
+                                                    .dataConclusaoFocusNode,
                                                 autofocus: true,
                                                 autofillHints: [
                                                   AutofillHints.birthday
@@ -381,6 +407,8 @@ class _CreateRequisicaoWidgetState extends State<CreateRequisicaoWidget> {
                                               child: TextFormField(
                                                 controller: _model
                                                     .descricaoRequisicaoController,
+                                                focusNode: _model
+                                                    .descricaoRequisicaoFocusNode,
                                                 autofocus: true,
                                                 obscureText: false,
                                                 decoration: InputDecoration(
@@ -565,6 +593,8 @@ class _CreateRequisicaoWidgetState extends State<CreateRequisicaoWidget> {
                                                     child: TextFormField(
                                                       controller: _model
                                                           .emailUsuarioController,
+                                                      focusNode: _model
+                                                          .emailUsuarioFocusNode,
                                                       autofocus: true,
                                                       autofillHints: [
                                                         AutofillHints.email
