@@ -891,6 +891,11 @@ class GetPontoCall {
         r'''$[:].id_usuario_criacao''',
         true,
       );
+  dynamic status(dynamic response) => getJsonField(
+        response,
+        r'''$[:].status''',
+        true,
+      );
 }
 
 class BaterPontoCall {
@@ -903,7 +908,8 @@ class BaterPontoCall {
 {
   "data_ponto": "${dataPonto}",
   "hora_ponto": "${horaPonto}",
-  "id_usuario_criacao": "${idUsuario}"
+  "id_usuario_criacao": "${idUsuario}",
+  "status": "Entrada"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Bater Ponto',
