@@ -336,12 +336,29 @@ class _GetPontoWidgetState extends State<GetPontoWidget> {
                                                             padding: MediaQuery
                                                                 .viewInsetsOf(
                                                                     context),
-                                                            child:
-                                                                DropdownOptionsPontoWidget(
-                                                              idPonto:
-                                                                  getJsonField(
-                                                                listPontoItem,
-                                                                r'''$.id_ponto''',
+                                                            child: Container(
+                                                              height: MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .height *
+                                                                  0.25,
+                                                              child:
+                                                                  DropdownOptionsPontoWidget(
+                                                                idPonto:
+                                                                    getJsonField(
+                                                                  listPontoItem,
+                                                                  r'''$.id_ponto''',
+                                                                ),
+                                                                dataPonto:
+                                                                    getJsonField(
+                                                                  listPontoItem,
+                                                                  r'''$.data_ponto''',
+                                                                ).toString(),
+                                                                horaPonto:
+                                                                    getJsonField(
+                                                                  listPontoItem,
+                                                                  r'''$.hora_ponto''',
+                                                                ).toString(),
                                                               ),
                                                             ),
                                                           );
@@ -352,7 +369,7 @@ class _GetPontoWidgetState extends State<GetPontoWidget> {
                                                     text: '',
                                                     icon: Icon(
                                                       Icons.notes,
-                                                      size: 25.0,
+                                                      size: 27.0,
                                                     ),
                                                     options: FFButtonOptions(
                                                       width: 45.0,

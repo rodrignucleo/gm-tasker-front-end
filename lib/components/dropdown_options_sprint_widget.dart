@@ -5,29 +5,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'dropdown_options_ponto_model.dart';
-export 'dropdown_options_ponto_model.dart';
+import 'dropdown_options_sprint_model.dart';
+export 'dropdown_options_sprint_model.dart';
 
-class DropdownOptionsPontoWidget extends StatefulWidget {
-  const DropdownOptionsPontoWidget({
+class DropdownOptionsSprintWidget extends StatefulWidget {
+  const DropdownOptionsSprintWidget({
     Key? key,
-    required this.idPonto,
-    required this.dataPonto,
-    required this.horaPonto,
+    required this.idSprint,
+    required this.nomeSprint,
   }) : super(key: key);
 
-  final int? idPonto;
-  final String? dataPonto;
-  final String? horaPonto;
+  final int? idSprint;
+  final String? nomeSprint;
 
   @override
-  _DropdownOptionsPontoWidgetState createState() =>
-      _DropdownOptionsPontoWidgetState();
+  _DropdownOptionsSprintWidgetState createState() =>
+      _DropdownOptionsSprintWidgetState();
 }
 
-class _DropdownOptionsPontoWidgetState
-    extends State<DropdownOptionsPontoWidget> {
-  late DropdownOptionsPontoModel _model;
+class _DropdownOptionsSprintWidgetState
+    extends State<DropdownOptionsSprintWidget> {
+  late DropdownOptionsSprintModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -38,7 +36,7 @@ class _DropdownOptionsPontoWidgetState
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => DropdownOptionsPontoModel());
+    _model = createModel(context, () => DropdownOptionsSprintModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -83,63 +81,100 @@ class _DropdownOptionsPontoWidgetState
                   style: FlutterFlowTheme.of(context).labelMedium,
                 ),
               ),
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  context.pushNamed(
-                    'editPonto',
-                    queryParameters: {
-                      'idPonto': serializeParam(
-                        widget.idPonto,
-                        ParamType.int,
-                      ),
-                      'dataPonto': serializeParam(
-                        widget.dataPonto,
-                        ParamType.String,
-                      ),
-                      'horaPonto': serializeParam(
-                        widget.horaPonto,
-                        ParamType.String,
-                      ),
-                    }.withoutNulls,
-                  );
-                },
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                  ),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              12.0, 0.0, 0.0, 0.0),
-                          child: Icon(
-                            Icons.edit,
-                            color: FlutterFlowTheme.of(context).primaryText,
-                            size: 20.0,
-                          ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    context.pushNamed(
+                      'getRequisicaoSprint',
+                      queryParameters: {
+                        'nomeSprint': serializeParam(
+                          widget.nomeSprint,
+                          ParamType.String,
                         ),
-                        Expanded(
-                          child: Padding(
+                        'idSprint': serializeParam(
+                          widget.idSprint,
+                          ParamType.int,
+                        ),
+                      }.withoutNulls,
+                    );
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                    ),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 12.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              'Editar',
-                              style: FlutterFlowTheme.of(context).bodyMedium,
+                            child: Icon(
+                              Icons.remove_red_eye_outlined,
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              size: 20.0,
                             ),
                           ),
-                        ),
-                      ],
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 0.0, 0.0),
+                              child: Text(
+                                'Visualizar',
+                                style: FlutterFlowTheme.of(context).bodyMedium,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
+              ),
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                ),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
+                        child: Icon(
+                          Icons.edit,
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          size: 20.0,
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              12.0, 0.0, 0.0, 0.0),
+                          child: Text(
+                            'Editar',
+                            style: FlutterFlowTheme.of(context).bodyMedium,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Divider(
+                thickness: 1.0,
+                color: FlutterFlowTheme.of(context).alternate,
               ),
               InkWell(
                 splashColor: Colors.transparent,
@@ -147,13 +182,12 @@ class _DropdownOptionsPontoWidgetState
                 hoverColor: Colors.transparent,
                 highlightColor: Colors.transparent,
                 onTap: () async {
-                  var _shouldSetState = false;
                   var confirmDialogResponse = await showDialog<bool>(
                         context: context,
                         builder: (alertDialogContext) {
                           return AlertDialog(
                             title: Text('Tem certeza?'),
-                            content: Text('Deseja excluir esse ponto?'),
+                            content: Text('Deseja excluir essa sprint?'),
                             actions: [
                               TextButton(
                                 onPressed: () =>
@@ -171,17 +205,17 @@ class _DropdownOptionsPontoWidgetState
                       ) ??
                       false;
                   if (confirmDialogResponse) {
-                    _model.apiResult002 = await GMApiGroup.deletePontoCall.call(
-                      idPonto: widget.idPonto,
+                    _model.apiResult002 =
+                        await GMApiGroup.deleteSprintCall.call(
+                      idSprint: widget.idSprint,
                     );
-                    _shouldSetState = true;
                     if ((_model.apiResult002?.succeeded ?? true)) {
                       Navigator.pop(context);
                       ScaffoldMessenger.of(context).clearSnackBars();
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
-                            'Ponto excluido!',
+                            'Sprint excluida!',
                             style: TextStyle(
                               color: FlutterFlowTheme.of(context).primaryText,
                             ),
@@ -191,20 +225,21 @@ class _DropdownOptionsPontoWidgetState
                               FlutterFlowTheme.of(context).customColor1,
                         ),
                       );
-                    } else {
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-                    }
 
-                    if (_shouldSetState) setState(() {});
-                    return;
-                  } else {
-                    Navigator.pop(context);
-                    if (_shouldSetState) setState(() {});
-                    return;
+                      context.goNamed(
+                        'getSprint',
+                        extra: <String, dynamic>{
+                          kTransitionInfoKey: TransitionInfo(
+                            hasTransition: true,
+                            transitionType: PageTransitionType.fade,
+                            duration: Duration(milliseconds: 0),
+                          ),
+                        },
+                      );
+                    }
                   }
 
-                  if (_shouldSetState) setState(() {});
+                  setState(() {});
                 },
                 child: Container(
                   width: double.infinity,

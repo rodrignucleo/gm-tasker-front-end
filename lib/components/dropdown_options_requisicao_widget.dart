@@ -108,6 +108,10 @@ class _DropdownOptionsRequisicaoWidgetState
                     context.pushNamed(
                       'getRequisicaoInfo',
                       queryParameters: {
+                        'idRequisicao': serializeParam(
+                          widget.idRequisicao,
+                          ParamType.int,
+                        ),
                         'tituloRequisicao': serializeParam(
                           widget.tituloRequisicao,
                           ParamType.String,
@@ -120,20 +124,20 @@ class _DropdownOptionsRequisicaoWidgetState
                           widget.decricaoRequisicao,
                           ParamType.String,
                         ),
-                        'idRequisicao': serializeParam(
-                          0,
-                          ParamType.int,
-                        ),
                         'statusRequisicao': serializeParam(
                           widget.statusRequisicao,
                           ParamType.String,
                         ),
-                        'dataCadastro': serializeParam(
-                          widget.dataCriacao,
+                        'emailRequisicao': serializeParam(
+                          widget.emailRequisicao,
                           ParamType.String,
                         ),
                         'sprintRequisicao': serializeParam(
-                          widget.sprintNomeRequisicao,
+                          widget.sprintRequisicao,
+                          ParamType.String,
+                        ),
+                        'dataCadastro': serializeParam(
+                          widget.dataCriacao,
                           ParamType.String,
                         ),
                         'responsavelRequisicao': serializeParam(
@@ -145,10 +149,6 @@ class _DropdownOptionsRequisicaoWidgetState
                         ),
                         'usuarioCadastro': serializeParam(
                           widget.solicitanteRequisicao,
-                          ParamType.String,
-                        ),
-                        'emailRequisicao': serializeParam(
-                          widget.emailRequisicao,
                           ParamType.String,
                         ),
                       }.withoutNulls,

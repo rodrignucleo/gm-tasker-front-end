@@ -835,7 +835,7 @@ class _GetRequisicaoInfoWidgetState extends State<GetRequisicaoInfoWidget> {
                               0.0, 0.0, 0.0, 16.0),
                           child: FFButtonWidget(
                             onPressed: () async {
-                              context.pushNamed('RequisicaoGeral');
+                              context.pushNamed('getRequisicao');
 
                               Navigator.pop(context);
                             },

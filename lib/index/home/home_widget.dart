@@ -238,7 +238,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                             if (taskDetailsGetRequisicaoResponse
                                                 .succeeded) {
                                               context.pushNamed(
-                                                'RequisicaoGeral',
+                                                'getRequisicao',
                                                 extra: <String, dynamic>{
                                                   kTransitionInfoKey:
                                                       TransitionInfo(
@@ -394,7 +394,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                                             if (taskDetailsGetRequisicaoConcluidaResponse
                                                 .succeeded) {
                                               context.pushNamed(
-                                                  'RequisicaoGeralConcluida');
+                                                  'getRequisicaoConcluida');
                                             } else {
                                               return;
                                             }

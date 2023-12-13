@@ -44,13 +44,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, _) => LoginWidget(),
         ),
         FFRoute(
-          name: 'RequisicaoGeral',
-          path: '/requisicaoGeral',
+          name: 'getRequisicao',
+          path: '/getRequisicao',
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'RequisicaoGeral')
+              ? NavBarPage(initialPage: 'getRequisicao')
               : NavBarPage(
-                  initialPage: 'RequisicaoGeral',
-                  page: RequisicaoGeralWidget(),
+                  initialPage: 'getRequisicao',
+                  page: GetRequisicaoWidget(),
                 ),
         ),
         FFRoute(
@@ -108,11 +108,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'RequisicaoGeralConcluida',
-          path: '/requisicaoGeralConcluida',
+          name: 'getRequisicaoConcluida',
+          path: '/getRequisicaoConcluida',
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'RequisicaoGeralConcluida')
-              : RequisicaoGeralConcluidaWidget(),
+              ? NavBarPage(initialPage: 'getRequisicaoConcluida')
+              : GetRequisicaoConcluidaWidget(),
         ),
         FFRoute(
           name: 'getRequisicaoInfo',
@@ -138,9 +138,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'SprintGeral',
-          path: '/sprintGeral',
-          builder: (context, params) => SprintGeralWidget(),
+          name: 'getSprint',
+          path: '/getSprint',
+          builder: (context, params) => GetSprintWidget(),
         ),
         FFRoute(
           name: 'createSprint',
@@ -156,6 +156,23 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'getPonto',
           path: '/getPonto',
           builder: (context, params) => GetPontoWidget(),
+        ),
+        FFRoute(
+          name: 'editPonto',
+          path: '/editPonto',
+          builder: (context, params) => EditPontoWidget(
+            idPonto: params.getParam('idPonto', ParamType.int),
+            dataPonto: params.getParam('dataPonto', ParamType.String),
+            horaPonto: params.getParam('horaPonto', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'getRequisicaoSprint',
+          path: '/getRequisicaoSprint',
+          builder: (context, params) => GetRequisicaoSprintWidget(
+            nomeSprint: params.getParam('nomeSprint', ParamType.String),
+            idSprint: params.getParam('idSprint', ParamType.int),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

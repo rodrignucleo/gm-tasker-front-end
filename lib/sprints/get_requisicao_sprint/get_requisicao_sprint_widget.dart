@@ -10,25 +10,33 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'requisicao_geral_model.dart';
-export 'requisicao_geral_model.dart';
+import 'get_requisicao_sprint_model.dart';
+export 'get_requisicao_sprint_model.dart';
 
-class RequisicaoGeralWidget extends StatefulWidget {
-  const RequisicaoGeralWidget({Key? key}) : super(key: key);
+class GetRequisicaoSprintWidget extends StatefulWidget {
+  const GetRequisicaoSprintWidget({
+    Key? key,
+    this.nomeSprint,
+    this.idSprint,
+  }) : super(key: key);
+
+  final String? nomeSprint;
+  final int? idSprint;
 
   @override
-  _RequisicaoGeralWidgetState createState() => _RequisicaoGeralWidgetState();
+  _GetRequisicaoSprintWidgetState createState() =>
+      _GetRequisicaoSprintWidgetState();
 }
 
-class _RequisicaoGeralWidgetState extends State<RequisicaoGeralWidget> {
-  late RequisicaoGeralModel _model;
+class _GetRequisicaoSprintWidgetState extends State<GetRequisicaoSprintWidget> {
+  late GetRequisicaoSprintModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => RequisicaoGeralModel());
+    _model = createModel(context, () => GetRequisicaoSprintModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -96,7 +104,7 @@ class _RequisicaoGeralWidgetState extends State<RequisicaoGeralWidget> {
           title: Align(
             alignment: AlignmentDirectional(-0.51, -0.31),
             child: Text(
-              'Suas Requisições',
+              'Suas Requisições da Sprint',
               style: FlutterFlowTheme.of(context).headlineMedium.override(
                     fontFamily: 'Outfit',
                     color: Colors.white,
@@ -167,11 +175,8 @@ class _RequisicaoGeralWidgetState extends State<RequisicaoGeralWidget> {
                         ),
                       ),
                       FutureBuilder<ApiCallResponse>(
-                        future: GMApiGroup.getRequisicaoCall.call(
-                          idUsuario: getJsonField(
-                            FFAppState().CurrentUserJson,
-                            r'''$.id_usuario''',
-                          ).toString(),
+                        future: GMApiGroup.getRequisicaoSprintCall.call(
+                          idSprint: widget.idSprint,
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
@@ -188,18 +193,29 @@ class _RequisicaoGeralWidgetState extends State<RequisicaoGeralWidget> {
                               ),
                             );
                           }
-                          final columnGetRequisicaoResponse = snapshot.data!;
+                          final columnGetRequisicaoSprintResponse =
+                              snapshot.data!;
                           return SingleChildScrollView(
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                if (columnGetRequisicaoResponse.succeeded)
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 20.0),
+                                  child: Text(
+                                    'Sprint: ${widget.nomeSprint}',
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleMedium,
+                                  ),
+                                ),
+                                if (columnGetRequisicaoSprintResponse.succeeded)
                                   Builder(
                                     builder: (context) {
                                       final listReq =
-                                          columnGetRequisicaoResponse.jsonBody
+                                          columnGetRequisicaoSprintResponse
+                                              .jsonBody
                                               .toList();
                                       return ListView.builder(
                                         padding: EdgeInsets.zero,
@@ -441,12 +457,12 @@ class _RequisicaoGeralWidgetState extends State<RequisicaoGeralWidget> {
                                                         text: '',
                                                         icon: Icon(
                                                           Icons.notes,
-                                                          size: 30.0,
+                                                          size: 27.0,
                                                         ),
                                                         options:
                                                             FFButtonOptions(
                                                           width: 45.0,
-                                                          height: 35.0,
+                                                          height: 45.0,
                                                           padding:
                                                               EdgeInsetsDirectional
                                                                   .fromSTEB(
