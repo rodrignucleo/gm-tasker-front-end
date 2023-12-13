@@ -11,7 +11,7 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 /// Start GM Api Group Code
 
 class GMApiGroup {
-  static String baseUrl = 'https://64763dad2550d3fd65d6e9cbb6fecdf3.serveo.net';
+  static String baseUrl = 'https://3add0496b048280f6621fdf806cdf1bd.serveo.net';
   static Map<String, String> headers = {};
   static GetLoginCall getLoginCall = GetLoginCall();
   static GetRequisicaoCall getRequisicaoCall = GetRequisicaoCall();
@@ -38,6 +38,7 @@ class GMApiGroup {
   static GetRequisicaoSprintCall getRequisicaoSprintCall =
       GetRequisicaoSprintCall();
   static DeleteSprintCall deleteSprintCall = DeleteSprintCall();
+  static EditSprintCall editSprintCall = EditSprintCall();
 }
 
 class GetLoginCall {
@@ -1134,6 +1135,75 @@ class DeleteSprintCall {
       cache: false,
     );
   }
+}
+
+class EditSprintCall {
+  Future<ApiCallResponse> call({
+    int? idSprint,
+    String? nome = '',
+    String? descricao = '',
+    String? dataConclusao = '',
+    int? idStatus,
+    String? statusNome = '',
+    int? idUsuarioCriacao,
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "id_sprint": ${idSprint},
+  "nome": "${nome}",
+  "descricao": "${descricao}",
+  "data_cadastro": "${dataConclusao}",
+  "data_conclusao": "${dataConclusao}",
+  "id_status": 1,
+  "id_usuario_criacao": ${idUsuarioCriacao}
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Edit Sprint',
+      apiUrl: '${GMApiGroup.baseUrl}/api/Sprint/${idSprint}/${statusNome}',
+      callType: ApiCallType.PUT,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic idSprint(dynamic response) => getJsonField(
+        response,
+        r'''$.id_sprint''',
+      );
+  dynamic nomeSprint(dynamic response) => getJsonField(
+        response,
+        r'''$.nome''',
+      );
+  dynamic descricacoSprint(dynamic response) => getJsonField(
+        response,
+        r'''$.descricao''',
+      );
+  dynamic dataCadastroSprint(dynamic response) => getJsonField(
+        response,
+        r'''$.data_cadastro''',
+      );
+  dynamic dataConclusaoSprint(dynamic response) => getJsonField(
+        response,
+        r'''$.data_conclusao''',
+      );
+  dynamic idStatusSprint(dynamic response) => getJsonField(
+        response,
+        r'''$.id_status''',
+      );
+  dynamic nomeStatus(dynamic response) => getJsonField(
+        response,
+        r'''$.status.nome''',
+      );
+  dynamic idUsuarioCriacaoSprint(dynamic response) => getJsonField(
+        response,
+        r'''$.id_usuario_criacao''',
+      );
 }
 
 /// End GM Api Group Code

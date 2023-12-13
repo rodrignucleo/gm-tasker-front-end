@@ -125,7 +125,7 @@ class _GetPontoWidgetState extends State<GetPontoWidget> {
                               r'''$.id_usuario''',
                             ),
                             dataPonto: dateTimeFormat(
-                                'd/M/y', _model.calendarSelectedDay?.end),
+                                'dd/MM/yyyy', _model.calendarSelectedDay?.end),
                             horaPonto:
                                 dateTimeFormat('Hms', getCurrentTimestamp),
                           );

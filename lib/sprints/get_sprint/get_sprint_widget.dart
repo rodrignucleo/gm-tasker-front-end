@@ -330,6 +330,16 @@ class _GetSprintWidgetState extends State<GetSprintWidget> {
                                                                     listSprintItem,
                                                                     r'''$.nome''',
                                                                   ).toString(),
+                                                                  descricaoSprint:
+                                                                      getJsonField(
+                                                                    listSprintItem,
+                                                                    r'''$.descricao''',
+                                                                  ).toString(),
+                                                                  dataConclusao:
+                                                                      getJsonField(
+                                                                    listSprintItem,
+                                                                    r'''$.data_conclusao''',
+                                                                  ).toString(),
                                                                 ),
                                                               ),
                                                             );

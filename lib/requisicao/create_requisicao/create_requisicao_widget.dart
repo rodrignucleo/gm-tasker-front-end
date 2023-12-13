@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/dropdown06_account_widget.dart';
+import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -11,7 +12,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'create_requisicao_model.dart';
 export 'create_requisicao_model.dart';
@@ -35,9 +35,6 @@ class _CreateRequisicaoWidgetState extends State<CreateRequisicaoWidget> {
 
     _model.nomeRequisicaoController ??= TextEditingController();
     _model.nomeRequisicaoFocusNode ??= FocusNode();
-
-    _model.dataConclusaoController ??= TextEditingController();
-    _model.dataConclusaoFocusNode ??= FocusNode();
 
     _model.descricaoRequisicaoController ??= TextEditingController();
     _model.descricaoRequisicaoFocusNode ??= FocusNode();
@@ -301,100 +298,6 @@ class _CreateRequisicaoWidgetState extends State<CreateRequisicaoWidget> {
                                                 validator: _model
                                                     .nomeRequisicaoControllerValidator
                                                     .asValidator(context),
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 16.0),
-                                            child: Container(
-                                              width: 370.0,
-                                              child: TextFormField(
-                                                controller: _model
-                                                    .dataConclusaoController,
-                                                focusNode: _model
-                                                    .dataConclusaoFocusNode,
-                                                autofocus: true,
-                                                autofillHints: [
-                                                  AutofillHints.birthday
-                                                ],
-                                                obscureText: false,
-                                                decoration: InputDecoration(
-                                                  labelText:
-                                                      'Data para Conclusão',
-                                                  labelStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .labelMedium,
-                                                  enabledBorder:
-                                                      OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryBackground,
-                                                      width: 2.0,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            12.0),
-                                                  ),
-                                                  focusedBorder:
-                                                      OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      width: 2.0,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            12.0),
-                                                  ),
-                                                  errorBorder:
-                                                      OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .error,
-                                                      width: 2.0,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            12.0),
-                                                  ),
-                                                  focusedErrorBorder:
-                                                      OutlineInputBorder(
-                                                    borderSide: BorderSide(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .error,
-                                                      width: 2.0,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            12.0),
-                                                  ),
-                                                  filled: true,
-                                                  fillColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryBackground,
-                                                ),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
-                                                keyboardType:
-                                                    TextInputType.datetime,
-                                                validator: _model
-                                                    .dataConclusaoControllerValidator
-                                                    .asValidator(context),
-                                                inputFormatters: [
-                                                  _model.dataConclusaoMask
-                                                ],
                                               ),
                                             ),
                                           ),
@@ -834,6 +737,63 @@ class _CreateRequisicaoWidgetState extends State<CreateRequisicaoWidget> {
                                                 ],
                                               ),
                                             ),
+                                          Text(
+                                            'Insira a data de conclusão:',
+                                            style: FlutterFlowTheme.of(context)
+                                                .labelMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryBtnText,
+                                                ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 20.0),
+                                            child: FlutterFlowCalendar(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              iconColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              weekFormat: true,
+                                              weekStartsMonday: false,
+                                              rowHeight: 64.0,
+                                              onChange: (DateTimeRange?
+                                                  newSelectedDate) {
+                                                setState(() =>
+                                                    _model.calendarSelectedDay =
+                                                        newSelectedDate);
+                                              },
+                                              titleStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .headlineSmall
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryBtnText,
+                                                      ),
+                                              dayOfWeekStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelLarge,
+                                              dateStyle: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .lineColor,
+                                              ),
+                                              selectedDateStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall,
+                                              inactiveDateStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .labelMedium,
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -853,8 +813,9 @@ class _CreateRequisicaoWidgetState extends State<CreateRequisicaoWidget> {
                                             .descricaoRequisicaoController.text,
                                         dataCadastro: dateTimeFormat(
                                             'd/M/y', getCurrentTimestamp),
-                                        dataConclusao:
-                                            _model.dataConclusaoController.text,
+                                        dataConclusao: dateTimeFormat(
+                                            'dd/MM/yyyy',
+                                            _model.calendarSelectedDay?.end),
                                         statusNome: _model.statusDropDownValue,
                                         idUsuarioCriacao: getJsonField(
                                           FFAppState().CurrentUserJson,

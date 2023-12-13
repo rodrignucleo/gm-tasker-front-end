@@ -18,10 +18,14 @@ class GetRequisicaoSprintWidget extends StatefulWidget {
     Key? key,
     this.nomeSprint,
     this.idSprint,
+    this.dataConclusao,
+    this.descricao,
   }) : super(key: key);
 
   final String? nomeSprint;
   final int? idSprint;
+  final String? dataConclusao;
+  final String? descricao;
 
   @override
   _GetRequisicaoSprintWidgetState createState() =>
@@ -132,7 +136,7 @@ class _GetRequisicaoSprintWidgetState extends State<GetRequisicaoSprintWidget> {
                   child: Stack(
                     children: [
                       Align(
-                        alignment: AlignmentDirectional(0.94, 0.82),
+                        alignment: AlignmentDirectional(0.94, 1.00),
                         child: FFButtonWidget(
                           onPressed: () async {
                             context.pushNamed(
@@ -201,11 +205,21 @@ class _GetRequisicaoSprintWidgetState extends State<GetRequisicaoSprintWidget> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
+                                Text(
+                                  'Sprint: ${widget.nomeSprint}',
+                                  style:
+                                      FlutterFlowTheme.of(context).titleMedium,
+                                ),
+                                Text(
+                                  'Data de Conclusao: ${widget.dataConclusao}',
+                                  style:
+                                      FlutterFlowTheme.of(context).titleMedium,
+                                ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 20.0),
                                   child: Text(
-                                    'Sprint: ${widget.nomeSprint}',
+                                    'Descricao: ${widget.descricao}',
                                     style: FlutterFlowTheme.of(context)
                                         .titleMedium,
                                   ),

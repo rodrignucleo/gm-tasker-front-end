@@ -26,3 +26,4 @@ export '/ponto/get_ponto/get_ponto_widget.dart' show GetPontoWidget;
 export '/ponto/edit_ponto/edit_ponto_widget.dart' show EditPontoWidget;
 export '/sprints/get_requisicao_sprint/get_requisicao_sprint_widget.dart'
     show GetRequisicaoSprintWidget;
+export '/sprints/edit_sprint/edit_sprint_widget.dart' show EditSprintWidget;

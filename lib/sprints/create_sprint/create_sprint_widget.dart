@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/dropdown06_account_widget.dart';
+import '/flutter_flow/flutter_flow_calendar.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -11,7 +12,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'create_sprint_model.dart';
 export 'create_sprint_model.dart';
@@ -38,9 +38,6 @@ class _CreateSprintWidgetState extends State<CreateSprintWidget> {
 
     _model.descricaoSprintController ??= TextEditingController();
     _model.descricaoSprintFocusNode ??= FocusNode();
-
-    _model.dataConclusaoController ??= TextEditingController();
-    _model.dataConclusaoFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -327,84 +324,6 @@ class _CreateSprintWidgetState extends State<CreateSprintWidget> {
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 16.0),
-                                      child: Container(
-                                        width: 370.0,
-                                        child: TextFormField(
-                                          controller:
-                                              _model.dataConclusaoController,
-                                          focusNode:
-                                              _model.dataConclusaoFocusNode,
-                                          autofocus: true,
-                                          autofillHints: [
-                                            AutofillHints.birthday
-                                          ],
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelText: 'Data para Conclusão',
-                                            labelStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMedium,
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .error,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .error,
-                                                width: 2.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12.0),
-                                            ),
-                                            filled: true,
-                                            fillColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryBackground,
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium,
-                                          keyboardType: TextInputType.datetime,
-                                          validator: _model
-                                              .dataConclusaoControllerValidator
-                                              .asValidator(context),
-                                          inputFormatters: [
-                                            _model.dataConclusaoMask
-                                          ],
-                                        ),
-                                      ),
-                                    ),
                                     FlutterFlowDropDown<String>(
                                       controller: _model
                                               .statusDropDownValueController ??=
@@ -443,81 +362,151 @@ class _CreateSprintWidgetState extends State<CreateSprintWidget> {
                                       isSearchable: false,
                                       isMultiSelect: false,
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Align(
-                              alignment: AlignmentDirectional(-0.22, 0.44),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 16.0),
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    _model.apiResultmb7 =
-                                        await GMApiGroup.createSprintCall.call(
-                                      statusNome: _model.statusDropDownValue,
-                                      nome: _model.nomeSprintController.text,
-                                      descricao:
-                                          _model.descricaoSprintController.text,
-                                      dataCadastro: dateTimeFormat(
-                                          'd/M/y', getCurrentTimestamp),
-                                      dataConclusao:
-                                          _model.dataConclusaoController.text,
-                                      idStatus: '1',
-                                      idUsuarioCriacao: getJsonField(
-                                        FFAppState().CurrentUserJson,
-                                        r'''$.id_usuario''',
-                                      ).toString(),
-                                    );
-                                    if ((_model.apiResultmb7?.succeeded ??
-                                        true)) {
-                                      context.pushNamed('getSprint');
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .clearSnackBars();
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Selecione o status',
-                                            style: TextStyle(
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 12.0, 0.0, 0.0),
+                                      child: Text(
+                                        'Insira a data de conclusão:',
+                                        style: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily: 'Readex Pro',
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                      .primaryBtnText,
                                             ),
-                                          ),
-                                          duration:
-                                              Duration(milliseconds: 5000),
-                                          backgroundColor: Color(0xFFFF0000),
-                                        ),
-                                      );
-                                    }
-
-                                    setState(() {});
-                                  },
-                                  text: 'Salvar',
-                                  options: FFButtonOptions(
-                                    width: 370.0,
-                                    height: 44.0,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 0.0),
-                                    color: Colors.black,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          color: Colors.white,
-                                        ),
-                                    elevation: 3.0,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1.0,
+                                      ),
                                     ),
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 20.0),
+                                      child: FlutterFlowCalendar(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        iconColor: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        weekFormat: true,
+                                        weekStartsMonday: false,
+                                        rowHeight: 64.0,
+                                        onChange:
+                                            (DateTimeRange? newSelectedDate) {
+                                          setState(() =>
+                                              _model.calendarSelectedDay =
+                                                  newSelectedDate);
+                                        },
+                                        titleStyle: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBtnText,
+                                            ),
+                                        dayOfWeekStyle:
+                                            FlutterFlowTheme.of(context)
+                                                .labelLarge,
+                                        dateStyle: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .lineColor,
+                                        ),
+                                        selectedDateStyle:
+                                            FlutterFlowTheme.of(context)
+                                                .titleSmall,
+                                        inactiveDateStyle:
+                                            FlutterFlowTheme.of(context)
+                                                .labelMedium,
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(0.04, 0.55),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 0.0, 16.0),
+                                        child: FFButtonWidget(
+                                          onPressed: () async {
+                                            _model.apiResultmb7 =
+                                                await GMApiGroup
+                                                    .createSprintCall
+                                                    .call(
+                                              statusNome:
+                                                  _model.statusDropDownValue,
+                                              nome: _model
+                                                  .nomeSprintController.text,
+                                              descricao: _model
+                                                  .descricaoSprintController
+                                                  .text,
+                                              dataCadastro: dateTimeFormat(
+                                                  'd/M/y', getCurrentTimestamp),
+                                              dataConclusao: dateTimeFormat(
+                                                  'dd/MM/yyyy',
+                                                  _model.calendarSelectedDay
+                                                      ?.end),
+                                              idStatus: '1',
+                                              idUsuarioCriacao: getJsonField(
+                                                FFAppState().CurrentUserJson,
+                                                r'''$.id_usuario''',
+                                              ).toString(),
+                                            );
+                                            if ((_model
+                                                    .apiResultmb7?.succeeded ??
+                                                true)) {
+                                              context.pushNamed('getSprint');
+                                            } else {
+                                              ScaffoldMessenger.of(context)
+                                                  .clearSnackBars();
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'Selecione o status',
+                                                    style: TextStyle(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                    ),
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds: 5000),
+                                                  backgroundColor:
+                                                      Color(0xFFFF0000),
+                                                ),
+                                              );
+                                            }
+
+                                            setState(() {});
+                                          },
+                                          text: 'Salvar',
+                                          options: FFButtonOptions(
+                                            width: 370.0,
+                                            height: 44.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: Colors.black,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Readex Pro',
+                                                      color: Colors.white,
+                                                    ),
+                                            elevation: 3.0,
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1.0,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),

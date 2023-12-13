@@ -305,8 +305,8 @@ class _EditPontoWidgetState extends State<EditPontoWidget> {
                               _model.apiEditPonto =
                                   await GMApiGroup.editPontoCall.call(
                                 idPonto: widget.idPonto,
-                                dataPonto: dateTimeFormat(
-                                    'd/M/y', _model.calendarSelectedDay?.end),
+                                dataPonto: dateTimeFormat('dd/MM/yyyy',
+                                    _model.calendarSelectedDay?.end),
                                 horaPonto: _model.dataConclusaoController.text,
                               );
                               if ((_model.apiEditPonto?.succeeded ?? true)) {
