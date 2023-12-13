@@ -11,7 +11,7 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 /// Start GM Api Group Code
 
 class GMApiGroup {
-  static String baseUrl = 'https://7cfca47befd0ead0f42b058f207f784c.serveo.net';
+  static String baseUrl = 'https://64763dad2550d3fd65d6e9cbb6fecdf3.serveo.net';
   static Map<String, String> headers = {};
   static GetLoginCall getLoginCall = GetLoginCall();
   static GetRequisicaoCall getRequisicaoCall = GetRequisicaoCall();
@@ -34,6 +34,10 @@ class GMApiGroup {
   static GetPontoCall getPontoCall = GetPontoCall();
   static BaterPontoCall baterPontoCall = BaterPontoCall();
   static DeletePontoCall deletePontoCall = DeletePontoCall();
+  static EditPontoCall editPontoCall = EditPontoCall();
+  static GetRequisicaoSprintCall getRequisicaoSprintCall =
+      GetRequisicaoSprintCall();
+  static DeleteSprintCall deleteSprintCall = DeleteSprintCall();
 }
 
 class GetLoginCall {
@@ -951,6 +955,178 @@ class DeletePontoCall {
       headers: {},
       params: {
         'id_ponto': idPonto,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class EditPontoCall {
+  Future<ApiCallResponse> call({
+    int? idPonto,
+    String? dataPonto = '',
+    String? horaPonto = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "id_ponto": ${idPonto},
+  "data_ponto": "${dataPonto}",
+  "hora_ponto": "${horaPonto}",
+  "status": "Saida",
+  "id_usuario_criacao": 1
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Edit Ponto',
+      apiUrl: '${GMApiGroup.baseUrl}/api/Ponto/${idPonto}',
+      callType: ApiCallType.PUT,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic dataPonto(dynamic response) => getJsonField(
+        response,
+        r'''$.data_ponto''',
+      );
+  dynamic idPonto(dynamic response) => getJsonField(
+        response,
+        r'''$.id_ponto''',
+      );
+  dynamic horaPonto(dynamic response) => getJsonField(
+        response,
+        r'''$.hora_ponto''',
+      );
+  dynamic statusPonto(dynamic response) => getJsonField(
+        response,
+        r'''$.status''',
+      );
+  dynamic idUsuarioPonto(dynamic response) => getJsonField(
+        response,
+        r'''$.id_usuario_criacao''',
+      );
+}
+
+class GetRequisicaoSprintCall {
+  Future<ApiCallResponse> call({
+    int? idSprint,
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get Requisicao Sprint',
+      apiUrl: '${GMApiGroup.baseUrl}/api/Requisicao/sprint/${idSprint}',
+      callType: ApiCallType.GET,
+      headers: {},
+      params: {
+        'id_sprint': idSprint,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic idRequisicao(dynamic response) => getJsonField(
+        response,
+        r'''$[:].id_requisicao''',
+        true,
+      );
+  dynamic nomeRequisicao(dynamic response) => getJsonField(
+        response,
+        r'''$[:].nome''',
+        true,
+      );
+  dynamic descricaoRequisicao(dynamic response) => getJsonField(
+        response,
+        r'''$[:].descricao''',
+        true,
+      );
+  dynamic dataCadastroRequisicao(dynamic response) => getJsonField(
+        response,
+        r'''$[:].data_cadastro''',
+        true,
+      );
+  dynamic dataConclusaoRequisicao(dynamic response) => getJsonField(
+        response,
+        r'''$[:].data_conclusao''',
+        true,
+      );
+  dynamic idStatusRequisicao(dynamic response) => getJsonField(
+        response,
+        r'''$[:].id_status''',
+        true,
+      );
+  dynamic nomeStatusRequisicao(dynamic response) => getJsonField(
+        response,
+        r'''$[:].status.nome''',
+        true,
+      );
+  dynamic idResponsavelRequisicao(dynamic response) => getJsonField(
+        response,
+        r'''$[:].id_atual_responsavel''',
+        true,
+      );
+  dynamic nomeResponsavelRequisicao(dynamic response) => getJsonField(
+        response,
+        r'''$[:].usuarioResponsavel.nome''',
+        true,
+      );
+  dynamic idUsuarioCriacaoRequisicao(dynamic response) => getJsonField(
+        response,
+        r'''$[:].id_usuario_criacao''',
+        true,
+      );
+  dynamic nomeUsuarioCriacaoRequisicao(dynamic response) => getJsonField(
+        response,
+        r'''$[:].usuario.nome''',
+        true,
+      );
+  dynamic sprintDataCadastro(dynamic response) => getJsonField(
+        response,
+        r'''$[:].sprint.data_cadastro''',
+        true,
+      );
+  dynamic sprintDataConclusao(dynamic response) => getJsonField(
+        response,
+        r'''$[:].sprint.data_conclusao''',
+        true,
+      );
+  dynamic nomeSprint(dynamic response) => getJsonField(
+        response,
+        r'''$[:].sprint.nome''',
+        true,
+      );
+  dynamic descricaoSprint(dynamic response) => getJsonField(
+        response,
+        r'''$[:].sprint.descricao''',
+        true,
+      );
+  dynamic idSprint(dynamic response) => getJsonField(
+        response,
+        r'''$[:].sprint.id_sprint''',
+        true,
+      );
+}
+
+class DeleteSprintCall {
+  Future<ApiCallResponse> call({
+    int? idSprint,
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Delete Sprint',
+      apiUrl: '${GMApiGroup.baseUrl}/api/Sprint/${idSprint}',
+      callType: ApiCallType.DELETE,
+      headers: {},
+      params: {
+        'id_sprint': idSprint,
       },
       returnBody: true,
       encodeBodyUtf8: false,

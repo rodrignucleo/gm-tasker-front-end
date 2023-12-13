@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/dropdown06_account_widget.dart';
+import '/components/dropdown_options_sprint_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -9,25 +10,25 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'sprint_geral_model.dart';
-export 'sprint_geral_model.dart';
+import 'get_sprint_model.dart';
+export 'get_sprint_model.dart';
 
-class SprintGeralWidget extends StatefulWidget {
-  const SprintGeralWidget({Key? key}) : super(key: key);
+class GetSprintWidget extends StatefulWidget {
+  const GetSprintWidget({Key? key}) : super(key: key);
 
   @override
-  _SprintGeralWidgetState createState() => _SprintGeralWidgetState();
+  _GetSprintWidgetState createState() => _GetSprintWidgetState();
 }
 
-class _SprintGeralWidgetState extends State<SprintGeralWidget> {
-  late SprintGeralModel _model;
+class _GetSprintWidgetState extends State<GetSprintWidget> {
+  late GetSprintModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SprintGeralModel());
+    _model = createModel(context, () => GetSprintModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -299,18 +300,52 @@ class _SprintGeralWidgetState extends State<SprintGeralWidget> {
                                                             .fromSTEB(0.0, 10.0,
                                                                 0.0, 10.0),
                                                     child: FFButtonWidget(
-                                                      onPressed: () {
-                                                        print(
-                                                            'MaisInfo pressed ...');
+                                                      onPressed: () async {
+                                                        await showModalBottomSheet(
+                                                          isScrollControlled:
+                                                              true,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return Padding(
+                                                              padding: MediaQuery
+                                                                  .viewInsetsOf(
+                                                                      context),
+                                                              child: Container(
+                                                                height: MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .height *
+                                                                    0.3,
+                                                                child:
+                                                                    DropdownOptionsSprintWidget(
+                                                                  idSprint:
+                                                                      getJsonField(
+                                                                    listSprintItem,
+                                                                    r'''$.id_sprint''',
+                                                                  ),
+                                                                  nomeSprint:
+                                                                      getJsonField(
+                                                                    listSprintItem,
+                                                                    r'''$.nome''',
+                                                                  ).toString(),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ).then((value) =>
+                                                            safeSetState(
+                                                                () {}));
                                                       },
                                                       text: '',
                                                       icon: Icon(
                                                         Icons.notes,
-                                                        size: 30.0,
+                                                        size: 27.0,
                                                       ),
                                                       options: FFButtonOptions(
                                                         width: 45.0,
-                                                        height: 35.0,
+                                                        height: 45.0,
                                                         padding:
                                                             EdgeInsetsDirectional
                                                                 .fromSTEB(

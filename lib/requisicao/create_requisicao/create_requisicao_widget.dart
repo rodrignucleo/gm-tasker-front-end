@@ -883,7 +883,7 @@ class _CreateRequisicaoWidgetState extends State<CreateRequisicaoWidget> {
                                       );
                                       if ((_model.apiCreateUser?.succeeded ??
                                           true)) {
-                                        context.pushNamed('RequisicaoGeral');
+                                        context.pushNamed('getRequisicao');
                                       } else {
                                         ScaffoldMessenger.of(context)
                                             .clearSnackBars();

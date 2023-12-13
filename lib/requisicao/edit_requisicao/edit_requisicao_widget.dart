@@ -905,7 +905,7 @@ class _EditRequisicaoWidgetState extends State<EditRequisicaoWidget> {
                                       );
                                       if ((_model.apiEditReq?.succeeded ??
                                           true)) {
-                                        context.pushNamed('RequisicaoGeral');
+                                        context.pushNamed('getRequisicao');
                                       } else {
                                         ScaffoldMessenger.of(context)
                                             .clearSnackBars();

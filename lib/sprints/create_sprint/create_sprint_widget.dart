@@ -472,7 +472,7 @@ class _CreateSprintWidgetState extends State<CreateSprintWidget> {
                                     );
                                     if ((_model.apiResultmb7?.succeeded ??
                                         true)) {
-                                      context.pushNamed('SprintGeral');
+                                      context.pushNamed('getSprint');
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .clearSnackBars();

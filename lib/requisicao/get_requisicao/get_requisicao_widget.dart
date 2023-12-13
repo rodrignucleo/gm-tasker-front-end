@@ -10,27 +10,25 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'requisicao_geral_concluida_model.dart';
-export 'requisicao_geral_concluida_model.dart';
+import 'get_requisicao_model.dart';
+export 'get_requisicao_model.dart';
 
-class RequisicaoGeralConcluidaWidget extends StatefulWidget {
-  const RequisicaoGeralConcluidaWidget({Key? key}) : super(key: key);
+class GetRequisicaoWidget extends StatefulWidget {
+  const GetRequisicaoWidget({Key? key}) : super(key: key);
 
   @override
-  _RequisicaoGeralConcluidaWidgetState createState() =>
-      _RequisicaoGeralConcluidaWidgetState();
+  _GetRequisicaoWidgetState createState() => _GetRequisicaoWidgetState();
 }
 
-class _RequisicaoGeralConcluidaWidgetState
-    extends State<RequisicaoGeralConcluidaWidget> {
-  late RequisicaoGeralConcluidaModel _model;
+class _GetRequisicaoWidgetState extends State<GetRequisicaoWidget> {
+  late GetRequisicaoModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => RequisicaoGeralConcluidaModel());
+    _model = createModel(context, () => GetRequisicaoModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -95,14 +93,16 @@ class _RequisicaoGeralConcluidaWidgetState
               ).then((value) => safeSetState(() {}));
             },
           ),
-          title: Text(
-            'Suas Requisições Concluidas',
-            textAlign: TextAlign.center,
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Outfit',
-                  color: Colors.white,
-                  fontSize: 24.0,
-                ),
+          title: Align(
+            alignment: AlignmentDirectional(-0.51, -0.31),
+            child: Text(
+              'Suas Requisições',
+              style: FlutterFlowTheme.of(context).headlineMedium.override(
+                    fontFamily: 'Outfit',
+                    color: Colors.white,
+                    fontSize: 24.0,
+                  ),
+            ),
           ),
           actions: [],
           centerTitle: true,
@@ -123,8 +123,51 @@ class _RequisicaoGeralConcluidaWidgetState
                   height: MediaQuery.sizeOf(context).height * 1.0,
                   child: Stack(
                     children: [
+                      Align(
+                        alignment: AlignmentDirectional(0.94, 0.82),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            context.pushNamed(
+                              'createRequisicao',
+                              extra: <String, dynamic>{
+                                kTransitionInfoKey: TransitionInfo(
+                                  hasTransition: true,
+                                  transitionType:
+                                      PageTransitionType.bottomToTop,
+                                ),
+                              },
+                            );
+                          },
+                          text: '',
+                          icon: Icon(
+                            Icons.add,
+                            size: 30.0,
+                          ),
+                          options: FFButtonOptions(
+                            width: 50.0,
+                            height: 50.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                8.0, 0.0, 0.0, 0.0),
+                            color: Colors.black,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Readex Pro',
+                                  color: Colors.white,
+                                ),
+                            elevation: 0.0,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
                       FutureBuilder<ApiCallResponse>(
-                        future: GMApiGroup.getRequisicaoConcluidaCall.call(
+                        future: GMApiGroup.getRequisicaoCall.call(
                           idUsuario: getJsonField(
                             FFAppState().CurrentUserJson,
                             r'''$.id_usuario''',
@@ -145,21 +188,18 @@ class _RequisicaoGeralConcluidaWidgetState
                               ),
                             );
                           }
-                          final columnGetRequisicaoConcluidaResponse =
-                              snapshot.data!;
+                          final columnGetRequisicaoResponse = snapshot.data!;
                           return SingleChildScrollView(
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                if (columnGetRequisicaoConcluidaResponse
-                                    .succeeded)
+                                if (columnGetRequisicaoResponse.succeeded)
                                   Builder(
                                     builder: (context) {
                                       final listReq =
-                                          columnGetRequisicaoConcluidaResponse
-                                              .jsonBody
+                                          columnGetRequisicaoResponse.jsonBody
                                               .toList();
                                       return ListView.builder(
                                         padding: EdgeInsets.zero,
@@ -197,68 +237,98 @@ class _RequisicaoGeralConcluidaWidgetState
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            Text(
-                                                              '  Titulo: ',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                            Text(
-                                                              getJsonField(
-                                                                listReqItem,
-                                                                r'''$.nome''',
-                                                              ).toString(),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                          ],
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      75.0,
+                                                                      0.0),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Text(
+                                                                '  Titulo: ',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium,
+                                                              ),
+                                                              Text(
+                                                                getJsonField(
+                                                                  listReqItem,
+                                                                  r'''$.nome''',
+                                                                ).toString(),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium,
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            Text(
-                                                              '  Status: ',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                            Text(
-                                                              getJsonField(
-                                                                listReqItem,
-                                                                r'''$.status.nome''',
-                                                              ).toString(),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                          ],
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      75.0,
+                                                                      0.0),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Text(
+                                                                '  Status: ',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium,
+                                                              ),
+                                                              Text(
+                                                                getJsonField(
+                                                                  listReqItem,
+                                                                  r'''$.status.nome''',
+                                                                ).toString(),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium,
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            Text(
-                                                              '  Conclusao em: ',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                            Text(
-                                                              getJsonField(
-                                                                listReqItem,
-                                                                r'''$.data_conclusao''',
-                                                              ).toString(),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium,
-                                                            ),
-                                                          ],
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      75.0,
+                                                                      0.0),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Text(
+                                                                '  Conclusao em: ',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium,
+                                                              ),
+                                                              Text(
+                                                                getJsonField(
+                                                                  listReqItem,
+                                                                  r'''$.data_conclusao''',
+                                                                ).toString(),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium,
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ],
                                                     ),
@@ -339,15 +409,15 @@ class _RequisicaoGeralConcluidaWidgetState
                                                                         listReqItem,
                                                                         r'''$.usuarioResponsavel.email''',
                                                                       ).toString(),
-                                                                      sprintRequisicao:
-                                                                          getJsonField(
-                                                                        listReqItem,
-                                                                        r'''$.id_sprint''',
-                                                                      ).toString(),
                                                                       dataCriacao:
                                                                           getJsonField(
                                                                         listReqItem,
                                                                         r'''$.data_cadastro''',
+                                                                      ).toString(),
+                                                                      sprintRequisicao:
+                                                                          getJsonField(
+                                                                        listReqItem,
+                                                                        r'''$.id_sprint''',
                                                                       ).toString(),
                                                                       sprintNomeRequisicao:
                                                                           getJsonField(
@@ -371,12 +441,12 @@ class _RequisicaoGeralConcluidaWidgetState
                                                         text: '',
                                                         icon: Icon(
                                                           Icons.notes,
-                                                          size: 30.0,
+                                                          size: 27.0,
                                                         ),
                                                         options:
                                                             FFButtonOptions(
                                                           width: 45.0,
-                                                          height: 35.0,
+                                                          height: 45.0,
                                                           padding:
                                                               EdgeInsetsDirectional
                                                                   .fromSTEB(
@@ -431,49 +501,6 @@ class _RequisicaoGeralConcluidaWidgetState
                             ),
                           );
                         },
-                      ),
-                      Align(
-                        alignment: AlignmentDirectional(0.94, 0.82),
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            context.pushNamed(
-                              'createRequisicao',
-                              extra: <String, dynamic>{
-                                kTransitionInfoKey: TransitionInfo(
-                                  hasTransition: true,
-                                  transitionType:
-                                      PageTransitionType.bottomToTop,
-                                ),
-                              },
-                            );
-                          },
-                          text: '',
-                          icon: Icon(
-                            Icons.add,
-                            size: 30.0,
-                          ),
-                          options: FFButtonOptions(
-                            width: 50.0,
-                            height: 50.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                8.0, 0.0, 0.0, 0.0),
-                            color: Colors.black,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Readex Pro',
-                                  color: Colors.white,
-                                ),
-                            elevation: 0.0,
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1.0,
-                            ),
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
                       ),
                     ],
                   ),
