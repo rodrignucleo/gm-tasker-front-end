@@ -11,7 +11,7 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 /// Start GM Api Group Code
 
 class GMApiGroup {
-  static String baseUrl = 'https://3add0496b048280f6621fdf806cdf1bd.serveo.net';
+  static String baseUrl = 'http://164.92.112.72';
   static Map<String, String> headers = {};
   static GetLoginCall getLoginCall = GetLoginCall();
   static GetRequisicaoCall getRequisicaoCall = GetRequisicaoCall();

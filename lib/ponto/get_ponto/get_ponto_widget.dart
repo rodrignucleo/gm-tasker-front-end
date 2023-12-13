@@ -54,384 +54,414 @@ class _GetPontoWidgetState extends State<GetPontoWidget> {
 
     context.watch<FFAppState>();
 
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: Color(0xFF454646),
-      appBar: AppBar(
-        backgroundColor: Color(0xFF040404),
-        automaticallyImplyLeading: false,
-        leading: FlutterFlowIconButton(
-          borderColor: Colors.transparent,
-          borderRadius: 30.0,
-          borderWidth: 1.0,
-          buttonSize: 60.0,
-          icon: FaIcon(
-            FontAwesomeIcons.bars,
-            color: FlutterFlowTheme.of(context).primaryBtnText,
-            size: 30.0,
-          ),
-          onPressed: () async {
-            await showModalBottomSheet(
-              isScrollControlled: true,
-              backgroundColor: Colors.transparent,
-              context: context,
-              builder: (context) {
-                return Padding(
-                  padding: MediaQuery.viewInsetsOf(context),
-                  child: Dropdown06AccountWidget(),
-                );
-              },
-            ).then((value) => safeSetState(() {}));
-          },
-        ),
-        title: Align(
-          alignment: AlignmentDirectional(-0.51, -0.31),
-          child: Text(
-            'Seus Pontos',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Outfit',
-                  color: Colors.white,
-                  fontSize: 24.0,
-                ),
-          ),
-        ),
-        actions: [],
-        centerTitle: true,
-        elevation: 2.0,
-      ),
-      body: SafeArea(
-        top: true,
-        child: Stack(
-          children: [
-            Container(
-              width: MediaQuery.sizeOf(context).width * 1.0,
-              height: MediaQuery.sizeOf(context).height * 1.0,
-              decoration: BoxDecoration(
-                color: Color(0xFF454646),
+    return Title(
+        title: 'getPonto',
+        color: FlutterFlowTheme.of(context).primary.withAlpha(0XFF),
+        child: Scaffold(
+          key: scaffoldKey,
+          backgroundColor: Color(0xFF454646),
+          appBar: AppBar(
+            backgroundColor: Color(0xFF040404),
+            automaticallyImplyLeading: false,
+            leading: FlutterFlowIconButton(
+              borderColor: Colors.transparent,
+              borderRadius: 30.0,
+              borderWidth: 1.0,
+              buttonSize: 60.0,
+              icon: FaIcon(
+                FontAwesomeIcons.bars,
+                color: FlutterFlowTheme.of(context).primaryBtnText,
+                size: 30.0,
               ),
-              child: Container(
-                width: MediaQuery.sizeOf(context).width * 1.0,
-                height: MediaQuery.sizeOf(context).height * 1.0,
-                child: Stack(
-                  children: [
-                    Align(
-                      alignment: AlignmentDirectional(0.92, 0.96),
-                      child: FFButtonWidget(
-                        onPressed: () async {
-                          _model.apiResultihp =
-                              await GMApiGroup.baterPontoCall.call(
+              onPressed: () async {
+                await showModalBottomSheet(
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  context: context,
+                  builder: (context) {
+                    return Padding(
+                      padding: MediaQuery.viewInsetsOf(context),
+                      child: Dropdown06AccountWidget(),
+                    );
+                  },
+                ).then((value) => safeSetState(() {}));
+              },
+            ),
+            title: Align(
+              alignment: AlignmentDirectional(-0.51, -0.31),
+              child: Text(
+                'Seus Pontos',
+                style: FlutterFlowTheme.of(context).headlineMedium.override(
+                      fontFamily: 'Outfit',
+                      color: Colors.white,
+                      fontSize: 24.0,
+                    ),
+              ),
+            ),
+            actions: [],
+            centerTitle: true,
+            elevation: 2.0,
+          ),
+          body: SafeArea(
+            top: true,
+            child: Stack(
+              children: [
+                Container(
+                  width: MediaQuery.sizeOf(context).width * 1.0,
+                  height: MediaQuery.sizeOf(context).height * 1.0,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF454646),
+                  ),
+                  child: Container(
+                    width: MediaQuery.sizeOf(context).width * 1.0,
+                    height: MediaQuery.sizeOf(context).height * 1.0,
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(0.92, 0.96),
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              _model.apiResultihp =
+                                  await GMApiGroup.baterPontoCall.call(
+                                idUsuario: getJsonField(
+                                  FFAppState().CurrentUserJson,
+                                  r'''$.id_usuario''',
+                                ),
+                                dataPonto: dateTimeFormat(
+                                  'dd/MM/yyyy',
+                                  _model.calendarSelectedDay?.end,
+                                  locale:
+                                      FFLocalizations.of(context).languageCode,
+                                ),
+                                horaPonto: dateTimeFormat(
+                                  'Hms',
+                                  getCurrentTimestamp,
+                                  locale:
+                                      FFLocalizations.of(context).languageCode,
+                                ),
+                              );
+                              if ((_model.apiResultihp?.succeeded ?? true)) {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Ponto Batido'),
+                                      content: Text(
+                                          'O Ponto foi registrado com sucesso!'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+
+                              setState(() {});
+                            },
+                            text: 'Bater Ponto',
+                            icon: Icon(
+                              Icons.watch_later_outlined,
+                              size: 30.0,
+                            ),
+                            options: FFButtonOptions(
+                              width: 161.0,
+                              height: 50.0,
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  8.0, 0.0, 0.0, 0.0),
+                              color: Colors.black,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: 'Readex Pro',
+                                    color: Colors.white,
+                                  ),
+                              elevation: 0.0,
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                        ),
+                        FutureBuilder<ApiCallResponse>(
+                          future: GMApiGroup.getPontoCall.call(
+                            dataPonto: dateTimeFormat(
+                              'd/M/y',
+                              _model.calendarSelectedDay?.end,
+                              locale: FFLocalizations.of(context).languageCode,
+                            ),
                             idUsuario: getJsonField(
                               FFAppState().CurrentUserJson,
                               r'''$.id_usuario''',
                             ),
-                            dataPonto: dateTimeFormat(
-                                'dd/MM/yyyy', _model.calendarSelectedDay?.end),
-                            horaPonto:
-                                dateTimeFormat('Hms', getCurrentTimestamp),
-                          );
-                          if ((_model.apiResultihp?.succeeded ?? true)) {
-                            await showDialog(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: Text('Ponto Batido'),
-                                  content: Text(
-                                      'O Ponto foi registrado com sucesso!'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          }
-
-                          setState(() {});
-                        },
-                        text: 'Bater Ponto',
-                        icon: Icon(
-                          Icons.watch_later_outlined,
-                          size: 30.0,
-                        ),
-                        options: FFButtonOptions(
-                          width: 161.0,
-                          height: 50.0,
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 0.0),
-                          iconPadding: EdgeInsetsDirectional.fromSTEB(
-                              8.0, 0.0, 0.0, 0.0),
-                          color: Colors.black,
-                          textStyle:
-                              FlutterFlowTheme.of(context).titleSmall.override(
-                                    fontFamily: 'Readex Pro',
-                                    color: Colors.white,
-                                  ),
-                          elevation: 0.0,
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1.0,
                           ),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
-                    ),
-                    FutureBuilder<ApiCallResponse>(
-                      future: GMApiGroup.getPontoCall.call(
-                        dataPonto: dateTimeFormat(
-                            'd/M/y', _model.calendarSelectedDay?.end),
-                        idUsuario: getJsonField(
-                          FFAppState().CurrentUserJson,
-                          r'''$.id_usuario''',
-                        ),
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
-                              ),
-                            ),
-                          );
-                        }
-                        final columnGetPontoResponse = snapshot.data!;
-                        return SingleChildScrollView(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              FlutterFlowCalendar(
-                                color: FlutterFlowTheme.of(context).primary,
-                                iconColor:
-                                    FlutterFlowTheme.of(context).alternate,
-                                weekFormat: true,
-                                weekStartsMonday: false,
-                                rowHeight: 64.0,
-                                onChange: (DateTimeRange? newSelectedDate) {
-                                  setState(() => _model.calendarSelectedDay =
-                                      newSelectedDate);
-                                },
-                                titleStyle: FlutterFlowTheme.of(context)
-                                    .headlineSmall
-                                    .override(
-                                      fontFamily: 'Outfit',
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBtnText,
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      FlutterFlowTheme.of(context).primary,
                                     ),
-                                dayOfWeekStyle:
-                                    FlutterFlowTheme.of(context).labelLarge,
-                                dateStyle: TextStyle(
-                                  color: FlutterFlowTheme.of(context).lineColor,
+                                  ),
                                 ),
-                                selectedDateStyle:
-                                    FlutterFlowTheme.of(context).titleSmall,
-                                inactiveDateStyle:
-                                    FlutterFlowTheme.of(context).labelMedium,
-                              ),
-                              if (columnGetPontoResponse.succeeded)
-                                Builder(
-                                  builder: (context) {
-                                    final listPonto = columnGetPontoResponse
-                                        .jsonBody
-                                        .toList();
-                                    return ListView.builder(
-                                      padding: EdgeInsets.zero,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: listPonto.length,
-                                      itemBuilder: (context, listPontoIndex) {
-                                        final listPontoItem =
-                                            listPonto[listPontoIndex];
-                                        return Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 5.0, 0.0),
-                                          child: Card(
-                                            clipBehavior:
-                                                Clip.antiAliasWithSaveLayer,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            elevation: 4.0,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                            child: Stack(
-                                              children: [
-                                                Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
+                              );
+                            }
+                            final columnGetPontoResponse = snapshot.data!;
+                            return SingleChildScrollView(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  FlutterFlowCalendar(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    iconColor:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    weekFormat: true,
+                                    weekStartsMonday: false,
+                                    rowHeight: 64.0,
+                                    onChange: (DateTimeRange? newSelectedDate) {
+                                      setState(() =>
+                                          _model.calendarSelectedDay =
+                                              newSelectedDate);
+                                    },
+                                    titleStyle: FlutterFlowTheme.of(context)
+                                        .headlineSmall
+                                        .override(
+                                          fontFamily: 'Outfit',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBtnText,
+                                        ),
+                                    dayOfWeekStyle:
+                                        FlutterFlowTheme.of(context).labelLarge,
+                                    dateStyle: TextStyle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .lineColor,
+                                    ),
+                                    selectedDateStyle:
+                                        FlutterFlowTheme.of(context).titleSmall,
+                                    inactiveDateStyle:
+                                        FlutterFlowTheme.of(context)
+                                            .labelMedium,
+                                    locale: FFLocalizations.of(context)
+                                        .languageCode,
+                                  ),
+                                  if (columnGetPontoResponse.succeeded)
+                                    Builder(
+                                      builder: (context) {
+                                        final listPonto = columnGetPontoResponse
+                                            .jsonBody
+                                            .toList();
+                                        return ListView.builder(
+                                          padding: EdgeInsets.zero,
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          itemCount: listPonto.length,
+                                          itemBuilder:
+                                              (context, listPontoIndex) {
+                                            final listPontoItem =
+                                                listPonto[listPontoIndex];
+                                            return Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 5.0, 0.0),
+                                              child: Card(
+                                                clipBehavior:
+                                                    Clip.antiAliasWithSaveLayer,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                elevation: 4.0,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.0),
+                                                ),
+                                                child: Stack(
                                                   children: [
-                                                    Row(
+                                                    Column(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
                                                       children: [
-                                                        Text(
-                                                          '  Horario: ',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium,
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Text(
+                                                              '  Horario: ',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium,
+                                                            ),
+                                                            Text(
+                                                              getJsonField(
+                                                                listPontoItem,
+                                                                r'''$.hora_ponto''',
+                                                              ).toString(),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium,
+                                                            ),
+                                                          ],
                                                         ),
-                                                        Text(
-                                                          getJsonField(
-                                                            listPontoItem,
-                                                            r'''$.hora_ponto''',
-                                                          ).toString(),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium,
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Text(
+                                                              '  Status: ',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium,
+                                                            ),
+                                                            Text(
+                                                              getJsonField(
+                                                                listPontoItem,
+                                                                r'''$.status''',
+                                                              ).toString(),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium,
+                                                            ),
+                                                          ],
                                                         ),
                                                       ],
                                                     ),
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Text(
-                                                          '  Status: ',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium,
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.81, 0.00),
+                                                      child: FFButtonWidget(
+                                                        onPressed: () async {
+                                                          await showModalBottomSheet(
+                                                            isScrollControlled:
+                                                                true,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return Padding(
+                                                                padding: MediaQuery
+                                                                    .viewInsetsOf(
+                                                                        context),
+                                                                child:
+                                                                    Container(
+                                                                  height: MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .height *
+                                                                      0.25,
+                                                                  child:
+                                                                      DropdownOptionsPontoWidget(
+                                                                    idPonto:
+                                                                        getJsonField(
+                                                                      listPontoItem,
+                                                                      r'''$.id_ponto''',
+                                                                    ),
+                                                                    dataPonto:
+                                                                        getJsonField(
+                                                                      listPontoItem,
+                                                                      r'''$.data_ponto''',
+                                                                    ).toString(),
+                                                                    horaPonto:
+                                                                        getJsonField(
+                                                                      listPontoItem,
+                                                                      r'''$.hora_ponto''',
+                                                                    ).toString(),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          ).then((value) =>
+                                                              safeSetState(
+                                                                  () {}));
+                                                        },
+                                                        text: '',
+                                                        icon: Icon(
+                                                          Icons.notes,
+                                                          size: 27.0,
                                                         ),
-                                                        Text(
-                                                          getJsonField(
-                                                            listPontoItem,
-                                                            r'''$.status''',
-                                                          ).toString(),
-                                                          style: FlutterFlowTheme
+                                                        options:
+                                                            FFButtonOptions(
+                                                          width: 45.0,
+                                                          height: 45.0,
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      1.0),
+                                                          iconPadding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      8.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .bodyMedium,
+                                                              .secondaryText,
+                                                          textStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Readex Pro',
+                                                                    fontSize:
+                                                                        35.0,
+                                                                  ),
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: Colors
+                                                                .transparent,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
                                                         ),
-                                                      ],
+                                                        showLoadingIndicator:
+                                                            false,
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0.81, 0.00),
-                                                  child: FFButtonWidget(
-                                                    onPressed: () async {
-                                                      await showModalBottomSheet(
-                                                        isScrollControlled:
-                                                            true,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return Padding(
-                                                            padding: MediaQuery
-                                                                .viewInsetsOf(
-                                                                    context),
-                                                            child: Container(
-                                                              height: MediaQuery
-                                                                          .sizeOf(
-                                                                              context)
-                                                                      .height *
-                                                                  0.25,
-                                                              child:
-                                                                  DropdownOptionsPontoWidget(
-                                                                idPonto:
-                                                                    getJsonField(
-                                                                  listPontoItem,
-                                                                  r'''$.id_ponto''',
-                                                                ),
-                                                                dataPonto:
-                                                                    getJsonField(
-                                                                  listPontoItem,
-                                                                  r'''$.data_ponto''',
-                                                                ).toString(),
-                                                                horaPonto:
-                                                                    getJsonField(
-                                                                  listPontoItem,
-                                                                  r'''$.hora_ponto''',
-                                                                ).toString(),
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      ).then((value) =>
-                                                          safeSetState(() {}));
-                                                    },
-                                                    text: '',
-                                                    icon: Icon(
-                                                      Icons.notes,
-                                                      size: 27.0,
-                                                    ),
-                                                    options: FFButtonOptions(
-                                                      width: 45.0,
-                                                      height: 45.0,
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  1.0),
-                                                      iconPadding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  8.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryText,
-                                                      textStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                fontSize: 35.0,
-                                                              ),
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Colors.transparent,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                    ),
-                                                    showLoadingIndicator: false,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
+                                              ),
+                                            );
+                                          },
                                         );
                                       },
-                                    );
-                                  },
-                                ),
-                            ],
-                          ),
-                        );
-                      },
+                                    ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }
