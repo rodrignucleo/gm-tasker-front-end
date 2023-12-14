@@ -7,7 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'create_sprint_widget.dart' show CreateSprintWidget;
+import 'edit_sprint_widget.dart' show EditSprintWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -15,7 +15,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class CreateSprintModel extends FlutterFlowModel<CreateSprintWidget> {
+class EditSprintModel extends FlutterFlowModel<EditSprintWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -32,7 +32,7 @@ class CreateSprintModel extends FlutterFlowModel<CreateSprintWidget> {
   FormFieldController<String>? statusDropDownValueController;
   // State field(s) for Calendar widget.
   DateTimeRange? calendarSelectedDay;
-  // Stores action output result for [Backend Call - API (Create Sprint)] action in Button widget.
+  // Stores action output result for [Backend Call - API (Edit Sprint)] action in Button widget.
   ApiCallResponse? apiResultmb7;
 
   /// Initialization and disposal methods.

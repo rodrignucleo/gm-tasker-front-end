@@ -13,10 +13,14 @@ class DropdownOptionsSprintWidget extends StatefulWidget {
     Key? key,
     required this.idSprint,
     required this.nomeSprint,
+    required this.descricaoSprint,
+    required this.dataConclusao,
   }) : super(key: key);
 
   final int? idSprint;
   final String? nomeSprint;
+  final String? descricaoSprint;
+  final String? dataConclusao;
 
   @override
   _DropdownOptionsSprintWidgetState createState() =>
@@ -100,6 +104,14 @@ class _DropdownOptionsSprintWidgetState
                           widget.idSprint,
                           ParamType.int,
                         ),
+                        'dataConclusao': serializeParam(
+                          widget.dataConclusao,
+                          ParamType.String,
+                        ),
+                        'descricao': serializeParam(
+                          widget.descricaoSprint,
+                          ParamType.String,
+                        ),
                       }.withoutNulls,
                     );
                   },
@@ -139,36 +151,65 @@ class _DropdownOptionsSprintWidgetState
                   ),
                 ),
               ),
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
-                        child: Icon(
-                          Icons.edit,
-                          color: FlutterFlowTheme.of(context).primaryText,
-                          size: 20.0,
-                        ),
+              InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  context.pushNamed(
+                    'editSprint',
+                    queryParameters: {
+                      'idSprint': serializeParam(
+                        widget.idSprint,
+                        ParamType.int,
                       ),
-                      Expanded(
-                        child: Padding(
+                      'nomeSprint': serializeParam(
+                        widget.nomeSprint,
+                        ParamType.String,
+                      ),
+                      'descricaoSprint': serializeParam(
+                        widget.descricaoSprint,
+                        ParamType.String,
+                      ),
+                      'dataConclusao': serializeParam(
+                        widget.dataConclusao,
+                        ParamType.String,
+                      ),
+                    }.withoutNulls,
+                  );
+                },
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               12.0, 0.0, 0.0, 0.0),
-                          child: Text(
-                            'Editar',
-                            style: FlutterFlowTheme.of(context).bodyMedium,
+                          child: Icon(
+                            Icons.edit,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            size: 20.0,
                           ),
                         ),
-                      ),
-                    ],
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                12.0, 0.0, 0.0, 0.0),
+                            child: Text(
+                              'Editar',
+                              style: FlutterFlowTheme.of(context).bodyMedium,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

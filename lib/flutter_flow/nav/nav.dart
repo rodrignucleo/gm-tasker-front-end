@@ -172,6 +172,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => GetRequisicaoSprintWidget(
             nomeSprint: params.getParam('nomeSprint', ParamType.String),
             idSprint: params.getParam('idSprint', ParamType.int),
+            dataConclusao: params.getParam('dataConclusao', ParamType.String),
+            descricao: params.getParam('descricao', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'editSprint',
+          path: '/editSprint',
+          builder: (context, params) => EditSprintWidget(
+            idSprint: params.getParam('idSprint', ParamType.int),
+            nomeSprint: params.getParam('nomeSprint', ParamType.String),
+            descricaoSprint:
+                params.getParam('descricaoSprint', ParamType.String),
+            dataConclusao: params.getParam('dataConclusao', ParamType.String),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
